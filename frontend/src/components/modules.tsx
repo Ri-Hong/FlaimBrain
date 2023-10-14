@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import './modules.css';
+import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon } from '@heroicons/react/24/solid';
+
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -122,15 +124,19 @@ const Modules: React.FC = () => {
   const renderNotebookSelection = () => {
     return (
       <div>
-        <h2>Select a Notebook</h2>
-        {folders.map(folder => (
-          <button key={folder.id} onClick={() => handleNotebookSelection(folder.id)}>
-            {folder.name}
+        <h2>select a notebook</h2>
+        <div className="button-container">
+          {folders.map(folder => (
+            <button className="invisible-button" key={folder.id} onClick={() => handleNotebookSelection(folder.id)}>
+              <FolderOpenIcon className="large-icon"/>
+              {folder.name}
+            </button>
+          ))}
+          <button className="invisible-button" onClick={createNewNotebook}> 
+            <PlusCircleIcon className="large-icon"/>
+            New Notebook
           </button>
-        ))}
-        <button onClick={createNewNotebook}>
-          Create New Notebook
-        </button>
+        </div>
       </div>
     );
   };
@@ -141,9 +147,12 @@ const Modules: React.FC = () => {
 
     return (
       <div>
-        <h2>Upload a file to {selectedFolderName}</h2>
-        
-        <input type="file" accept=".txt" onChange={createNewNote} />
+        <h2>upload a file to: {selectedFolderName}</h2>
+        <label htmlFor="file-upload">
+          <DocumentPlusIcon className="large-icon"/>
+          Browse Files
+        </label>
+        <input id="file-upload" type="file" accept=".txt" style={{display:'none'}} onChange={createNewNote} />
 
       </div>
     );
@@ -156,7 +165,8 @@ const Modules: React.FC = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="File Upload Modal"
-        // Other modal options as needed
+        overlayClassName={"overlay"}
+        className={"basic-modal"}
       >
         {!selectedNotebookId ? renderNotebookSelection() : renderFileUpload()}
       </Modal>

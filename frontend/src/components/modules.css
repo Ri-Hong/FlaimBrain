@@ -1,6 +1,65 @@
+.button-container {
+    display: flex;
+  }
 .basic-button {
     border: 1px solid #D2D2D2;
     background-color: #E4E4E4;
     border-radius: 5px;
     padding: 10px;
+}
+.invisible-button {
+    width: 17%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    white-space: normal;
+    text-align: center;
+    min-height: 48px;
+    min-width: 48px;
+}
+.large-icon {
+    width: 64px;
+    height: 64px;
+    color: #EA855A;
+}
+.medium-icon {
+    width: 40px; 
+    height: 40px;
+    color: #EA855A;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(61, 61, 61, 0.6);
+}
+.basic-modal {
+    width: 40%;
+    height: 40%;
+    background-color: white;
+    opacity: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgb(56, 56, 56);
+}
+label {
+    width: 17%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    white-space: normal;
+    text-align: center;
+    min-height: 48px;
+    min-width: 48px;
 }
