@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
       <aside className="sidebar">
         <Documents/>
         <section className="modules">
-          <h2>Modules</h2>
+          <h2>modules</h2>
           <Modules></Modules>
         </section>
       </aside>
@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
         <FileContentViewer content={selectedFileContent} />
       </section>
       <section className="chat-interface">
-      <h2>Chat Interface</h2>
+      <h2>chat interface</h2>
       </section>
     </div>
   );

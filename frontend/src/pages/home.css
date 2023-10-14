@@ -7,7 +7,8 @@
   width: 20%; /* reduced width */
   overflow: auto;
   background: #f4f4f4; /* Any light shade */
-  border-right: 1px solid #ddd; /* Light grey color */
+  /*border-right: 1px solid #ddd; /* Light grey color */
+  box-shadow: 1px 1px 5px rgb(209, 209, 209);
 }
 
 .file-structure, .modules {
@@ -18,13 +19,14 @@
   width: 50%; /* new section, adjust width as needed */
   overflow: auto;
   padding: 20px;
-  border-right: 1px solid #ddd; /* Light grey color */
 }
 
 .chat-interface {
   width: 30%; /* reduced width */
+  background: #f4f4f4;
   overflow: auto;
   padding: 20px;
+  box-shadow: -1px 1px 5px rgb(209, 209, 209);
 }
 
 h2 {

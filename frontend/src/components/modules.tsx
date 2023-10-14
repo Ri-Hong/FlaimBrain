@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import './modules.css';
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -150,7 +151,7 @@ const Modules: React.FC = () => {
 
   return (
     <div>
-      <button onClick={openModal}>Upload File</button>
+      <button className="basic-button" onClick={openModal}>Upload File</button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
