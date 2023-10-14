@@ -1,0 +1,32 @@
+.home-container {
+  display: flex;
+  height: 100vh; /* Adjust as needed */
+}
+
+.sidebar {
+  width: 20%; /* reduced width */
+  overflow: auto;
+  background: #f4f4f4; /* Any light shade */
+  border-right: 1px solid #ddd; /* Light grey color */
+}
+
+.file-structure, .modules {
+  padding: 20px;
+}
+
+.file-content {
+  width: 50%; /* new section, adjust width as needed */
+  overflow: auto;
+  padding: 20px;
+  border-right: 1px solid #ddd; /* Light grey color */
+}
+
+.chat-interface {
+  width: 30%; /* reduced width */
+  overflow: auto;
+  padding: 20px;
+}
+
+h2 {
+  color: #444;
+}
