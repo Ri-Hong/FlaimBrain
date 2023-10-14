@@ -2,7 +2,6 @@
 
 # dependencies
 
-frontend/.gitignore
 frontend/node_modules/
 
 /.pnp
