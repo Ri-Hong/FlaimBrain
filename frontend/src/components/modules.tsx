@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import './modules.css';
 import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon } from '@heroicons/react/24/solid';
+import Alert from '@mui/material/Alert';
 
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
@@ -15,6 +16,7 @@ const Modules: React.FC = () => {
   const selectedFolder = folders.find(folder => folder.id === selectedNotebookId);
   const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; // Fallback in case the ID is not found  
 
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     retrieveFolders();
@@ -115,11 +117,21 @@ const Modules: React.FC = () => {
   
       const data = await response.json();
       console.log('Document created:', data);
+      setShowAlert(true);
+      renderDocCreation();
+      console.log("Alert message sent.")
     } catch (error) {
       console.error('An error occurred:', error);
     }
   };
-  
+
+  const renderDocCreation = () => {
+    return (
+      <div>
+          <Alert severity="success">Successfully created</Alert>
+      </div>
+    );
+  };
 
   const renderNotebookSelection = () => {
     return (
@@ -137,6 +149,9 @@ const Modules: React.FC = () => {
             New Notebook
           </button>
         </div>
+        <div className="button-container-bottom-right">
+          <button className="cancel-button" onClick={closeModal}>Cancel</button>
+        </div>
       </div>
     );
   };
@@ -147,13 +162,17 @@ const Modules: React.FC = () => {
 
     return (
       <div>
-        <h2>upload a file to: {selectedFolderName}</h2>
-        <label htmlFor="file-upload">
-          <DocumentPlusIcon className="large-icon"/>
-          Browse Files
-        </label>
-        <input id="file-upload" type="file" accept=".txt" style={{display:'none'}} onChange={createNewNote} />
-
+        <div>
+          <h2>upload a file to: {selectedFolderName}</h2>
+          <label htmlFor="file-upload">
+            <DocumentPlusIcon className="large-icon"/>
+            Browse Files
+          </label>
+          <input id="file-upload" type="file" accept=".txt" style={{display:'none'}} onChange={createNewNote} />
+        </div>
+        <div className="button-container-bottom-right">
+          <button className="cancel-button" onClick={closeModal}>Cancel</button>
+        </div>
       </div>
     );
   };

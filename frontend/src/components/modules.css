@@ -1,11 +1,24 @@
 .button-container {
     display: flex;
   }
+.button-container-bottom-right {
+    position: absolute;
+    right: 5%;
+    top: 80%;
+}
 .basic-button {
     border: 1px solid #D2D2D2;
     background-color: #E4E4E4;
     border-radius: 5px;
     padding: 10px;
+    cursor: pointer;
+}
+.cancel-button { 
+    border: 1px solid #898989;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
 }
 .invisible-button {
     width: 17%;
@@ -44,7 +57,7 @@
     height: 40%;
     background-color: white;
     opacity: 100%;
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
