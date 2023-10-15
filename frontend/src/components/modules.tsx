@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import './modules.css';
-import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon } from '@heroicons/react/24/solid';
+import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon } from '@heroicons/react/24/solid';
 import Alert from '@mui/material/Alert';
 
 
@@ -177,6 +177,11 @@ const Modules: React.FC = () => {
     );
   };
 
+  const sendToChat = (moduleAction: string) => {
+    // send to chat interface after user clicks module 
+    console.log("Sending to chat: " + moduleAction);
+  };
+
   return (
     <div>
       <button className="basic-button" onClick={openModal}>Upload File</button>
@@ -189,6 +194,25 @@ const Modules: React.FC = () => {
       >
         {!selectedNotebookId ? renderNotebookSelection() : renderFileUpload()}
       </Modal>
+      <div className="module-container">
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("summarize")}>Summarize</span>
+        </div>
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("flashcards")}>Flashcards</span>
+        </div>
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("study guide")}>Create a study guide</span>
+        </div>
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("mock assessments")}>Create a mock assessment</span>
+        </div>
+      </div>
+
     </div>
   );
 };

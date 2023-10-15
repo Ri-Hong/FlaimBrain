@@ -6,7 +6,7 @@
 .sidebar {
   width: 20%; /* reduced width */
   overflow: auto;
-  background: #f4f4f4; 
+  background: #F6F4F4; 
   box-shadow: 1px 1px 5px rgb(209, 209, 209);
 }
 
@@ -22,7 +22,7 @@
 
 .chat-interface {
   width: 30%; /* reduced width */
-  background: #f4f4f4;
+  background: #F6F4F4;
   overflow: auto;
   padding: 20px;
   box-shadow: -1px 1px 5px rgb(209, 209, 209);

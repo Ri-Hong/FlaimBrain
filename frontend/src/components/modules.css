@@ -13,6 +13,10 @@
     padding: 10px;
     cursor: pointer;
 }
+.basic-button:hover {
+    background-color:#EA855A;
+    border: 1px solid #e66f3d;
+}
 .cancel-button { 
     border: 1px solid #898989;
     background-color: #FFFFFF;
@@ -43,6 +47,12 @@
     width: 40px; 
     height: 40px;
     color: #EA855A;
+}
+.small-icon {
+    width: 20px;
+    height: 20px;
+    color: #EA855A;
+    padding-inline-end: 10px;
 }
 .overlay {
     position: fixed;
@@ -75,4 +85,24 @@ label {
     text-align: center;
     min-height: 48px;
     min-width: 48px;
+}
+.module-container {
+    display: flex;
+    flex-direction: column;
+}
+.inline-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 20px;
+}
+.invisible-button-label {
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+}
+.invisible-button-label:hover {
+    color: #EA855A;
 }
