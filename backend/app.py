@@ -10,7 +10,7 @@ import os
 from routes.auth import auth  # Importing the Blueprint
 from routes.documents import documents  # Importing the Blueprint
 from routes.ocr import ocr  # Importing the Blueprint
-# from routes.chat import chat  # Importing the Blueprint
+from routes.chat import chat  # Importing the Blueprint
 
 dotenv.load_dotenv()
 
@@ -23,6 +23,7 @@ jwt = JWTManager(app)
 app.register_blueprint(auth, url_prefix='/auth')  # Registering the Blueprint
 app.register_blueprint(documents, url_prefix='/documents')  # Registering the Blueprint
 app.register_blueprint(ocr, url_prefix='/ocr')  # Registering the Blueprint
+app.register_blueprint(chat, url_prefix='/chat')  # Registering the Blueprint
 
 
 if __name__ == '__main__':
