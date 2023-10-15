@@ -56,7 +56,7 @@ def create_document():
     }
     
     doc = db.documents.insert_one(new_document)
-    
+        
     return jsonify({"message": "Document created", "id": str(doc.inserted_id)}), 201
 
 @documents.route('/get', methods=['GET'])
