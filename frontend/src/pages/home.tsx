@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
         <FileContentViewer content={selectedFileContent} fileName={selectedFileName} />
       </section>
       <section className="chat-interface">
-        <ChatPane/>
+        <ChatPane fileName={selectedFileName || ''}/>
       </section>
     </div>
   );

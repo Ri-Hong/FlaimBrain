@@ -3,7 +3,11 @@ import './ChatPane.css';
 
 import axios from 'axios';
 
-const ChatPane = () => {
+interface ChatPaneProps {
+  fileName: string;
+}
+
+const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
   const [message, setMessage] = useState<string>('');
   const [responses, setResponses] = useState<{ sender: string, content: string }[]>([]);
 
@@ -12,6 +16,8 @@ const ChatPane = () => {
     setResponses(prevResponses => [...prevResponses, { sender: 'user', content: message }]);
     setMessage('');  // Clear the input field
 
+    console.log("the filename: " + fileName);
+    
     try {
       const response = await fetch(`http://127.0.0.1:5000/chat/get-response`, {
         method: 'POST',
