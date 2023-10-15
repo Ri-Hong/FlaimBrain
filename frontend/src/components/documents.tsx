@@ -153,8 +153,6 @@ const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
       console.log('Clicked on file:', nodeData.name);
     }
     // put content of file clicked into fileContentViewer 
-    console.log("docID of file clicked: " + nameIdMap[nodeData.name]);
-    console.log("doc contents: " + nameContentMap[nodeData.name]);
     const content = nameContentMap[nodeData.name];
     onFileClick(content, nodeData.name);
   };
