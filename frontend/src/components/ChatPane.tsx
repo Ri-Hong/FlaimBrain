@@ -5,48 +5,58 @@ import axios from 'axios';
 
 const ChatPane = () => {
   const [message, setMessage] = useState<string>('');
-  const [responses, setResponses] = useState<string[]>([]);  // Explicit type definition here
+  const [responses, setResponses] = useState<{ sender: string, content: string }[]>([]);
 
-  const handleSendMessage = async () => {
-    // Call LangChain to process the message
-    const langChainResponse = await axios.post('https://langchain-api-url.com/process', {
-      text: message,
-      // other necessary parameters
-    });
+  const handleSendMessage = async (event: React.FormEvent) => {
+    event.preventDefault();  // Prevent the form from being submitted the traditional way
+    setResponses(prevResponses => [...prevResponses, { sender: 'user', content: message }]);
+    setMessage('');  // Clear the input field
 
-    // Assume LangChain returns a processed message to send to Cohere
-    const processedMessage = langChainResponse.data.processedMessage;
-
-    // Now send the processed message to Cohere for further processing
-    const cohereResponse = await axios.post('https://cohere-api-url.com/summarize', {
-      text: processedMessage,
-      // other necessary parameters
-    });
-
-    // Assume Cohere returns a summary as a response
-    const summary = cohereResponse.data.summary;
-
-    // Update the chat with the response
-    setResponses(prevResponses => [...prevResponses, summary]);
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/chat/get-response`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: message,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const responseData = await response.json();
+  
+      const reply = responseData.response;
+  
+      setResponses(prevResponses => [...prevResponses, { sender: 'bot', content: reply }]);
+    
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
+  
 
   return (
     <div className="chat-pane">
       <div className="messages">
         {responses.map((response, index) => (
-          <div key={index} className="message">
-            {response}
+          <div key={index} className={`message ${response.sender}`}>
+            {response.content}
           </div>
         ))}
       </div>
-      <div className="input-area">
+      <form className="input-area" onSubmit={handleSendMessage}>
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button onClick={handleSendMessage}>Send</button>
-      </div>
+        <button type="submit">Send</button>
+      </form>
     </div>
   );
 };
