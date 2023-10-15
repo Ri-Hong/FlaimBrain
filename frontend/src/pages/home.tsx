@@ -6,22 +6,34 @@ import FileContentViewer from '../components/fileContentViewer'; // Adjust the i
 import Modules from '../components/modules'; // Adjust the import
 import ChatPane from '../components/ChatPane';
 
+
 const HomePage: React.FC = () => {
   const [selectedFileContent, setSelectedFileContent] = useState<string | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string | undefined>(undefined);
+  const [refreshTree, setRefreshTree] = useState<boolean>(false);
 
   const handleFileContentUpdate = (content: string | null, fileName: string) => {
     setSelectedFileContent(content);
     setSelectedFileName(fileName);
   };
 
+  const handleFileUpload = (content: string | null, fileName: string) => {
+    setSelectedFileContent(content);
+    setSelectedFileName(fileName);
+    setRefreshTree(true); // Set the refresh state
+  };
+
+  const handleTreeRefreshed = () => {
+    setRefreshTree(false); // Reset the refresh state after it's done
+  };
+
   return (
     <div className="home-container">
       <aside className="sidebar">
-        <Documents onFileClick={handleFileContentUpdate}/>
+        <Documents onFileClick={handleFileContentUpdate} onRefreshed={handleTreeRefreshed} refreshTree={refreshTree} />
         <section className="modules">
           <h2>Modules</h2>
-          <Modules></Modules>
+          <Modules onFileUpload={handleFileUpload} />
         </section>
       </aside>
       <section className="file-content">

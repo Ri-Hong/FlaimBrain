@@ -8,7 +8,12 @@ import { useNavigate } from 'react-router-dom';
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
 
-const Modules: React.FC = () => {
+interface ModulesProps {
+  onFileUpload: (content: string | null, fileName: string) => void;
+}
+
+
+const Modules: React.FC<ModulesProps> = ({ onFileUpload }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedNotebookId, setSelectedNotebookId] = useState<string | null>(null);
 
@@ -72,7 +77,7 @@ const Modules: React.FC = () => {
     if (folderName) {
       // Call your API to create the notebook, or any other logic you need
       console.log('Creating a new notebook:', folderName);
-      createDocument(null, folderName, 'folder', null); // Passing the folder name to your function
+      createDocument(null, null, folderName, 'folder', null); 
     }
   };
 
@@ -92,7 +97,7 @@ const Modules: React.FC = () => {
     
           console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName);
           // Call your function to handle the file content
-          createDocument(file, file.name, 'file', selectedNotebookId as string); // Passing the file content and other details to your function
+          createDocument(text, file, file.name, 'file', selectedNotebookId as string); // Passing the file content and other details to your function
         };
         reader.readAsText(file); // Read the file's content as text
       }
@@ -107,7 +112,7 @@ const Modules: React.FC = () => {
     }
   };
   
-  const createDocument = async (file: File | null, fileName: string, fileOrFolder: string, parentId: string | null) => {
+  const createDocument = async (fileContent: string | null, file: File | null, fileName: string, fileOrFolder: string, parentId: string | null) => {
     try {
       // Create a FormData object
       const formData = new FormData();
@@ -136,10 +141,12 @@ const Modules: React.FC = () => {
       // Process the response
       const responseData = await response.json();
       console.log('Document created:', responseData);
+      onFileUpload(fileContent, fileName); // This is the callback to notify HomePage
 
       setShowAlert(true);
       renderDocCreation();
       console.log("Alert message sent.")
+      closeModal(); // Close the modal
     } catch (error) {
       console.error('An error occurred:', error);
     }

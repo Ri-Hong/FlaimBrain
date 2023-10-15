@@ -20,15 +20,14 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 persist_directory = os.path.join(current_dir, "storage")
 
 embedding = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
-vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
-
-retriever = vectordb.as_retriever(search_kwargs={"k": 3})
-llm = ChatOpenAI(model_name='gpt-4')
-
-qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
 
 def handle_query(user_input):
+    vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
+    retriever = vectordb.as_retriever(search_kwargs={"k": 3})
+    llm = ChatOpenAI(model_name='gpt-4')
+    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+
     query = f"###Prompt {user_input}"
     try:
         llm_response = qa(query)

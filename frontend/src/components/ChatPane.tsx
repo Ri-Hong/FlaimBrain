@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ChatPane.css';
+import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 
 interface ChatPaneProps {
   fileName: string;
@@ -130,7 +131,9 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className="basic-button" type="submit">Send</button>
+        <button className="basic-button" type="submit">
+            <PaperAirplaneIcon className="h-5 w-5" />
+        </button>
       </form>
     </div>
   );

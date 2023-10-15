@@ -4,10 +4,15 @@ import "react-folder-tree/dist/style.css";
 
 interface DocumentsProps {
   onFileClick: (content: string | null, fileName: string) => void;
+  onRefreshed: () => void;
+  refreshTree: boolean;
+  // ... possibly other props
 }
 
-const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
-  interface ITree {
+
+const Documents: React.FC<DocumentsProps> = ({ onFileClick, onRefreshed, refreshTree }) => {
+
+interface ITree {
     name: string;
     children?: ITree[]; // Children are optional and are of type ITree as well
   }
@@ -20,11 +25,56 @@ const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
     content: string;
   }
 
+  interface DocumentsProps {
+    onFileClick: (content: string | null, fileName: string) => void;
+    onRefreshed: () => void;
+    // ... other props if there are any
+}
+
   const prevTreeRef = useRef<ITree | null>(null);
   const defaultTree: ITree = { name: "Loading...", children: [] };
   const [initialTree, setInitialTree] = useState<ITree | null>(null);
   const [nameIdMap, setNameIdMap] = useState<Record<string, string>>({});
   const [nameContentMap, setNameContentMap] = useState<Record<string, string>>({});
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/documents/get', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, // if using token-based authentication
+          },
+        });
+
+        if (!response.ok) {
+          console.log('Error: Failed to retrieve documents');
+          return;
+        }
+
+        const documents: IDocument[] = await response.json();
+        createNameIdMap(documents);
+        const folders = documents.filter((doc: IDocument) => doc.parentId === null);
+        const transformedFolders: ITree[] = folders.map((folder: IDocument) => ({
+          name: folder.name,
+          children: documents.filter((doc: IDocument) => doc.parentId === folder._id).map((doc: IDocument) => ({ name: doc.name })),
+        }));
+      
+        setInitialTree({ name: "My Notebooks", children: transformedFolders });
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    if (refreshTree || !initialTree) {
+        fetchData();
+
+        // Once refreshed, invoke the callback if refreshTree is true
+        if(refreshTree) onRefreshed();
+    }
+}, [refreshTree]);
+
 
   // Populate the hashmap after documents are fetched
   const createNameIdMap = useCallback((documents: IDocument[]) => {
