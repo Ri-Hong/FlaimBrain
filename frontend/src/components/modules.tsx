@@ -65,7 +65,7 @@ const Modules: React.FC = () => {
     if (folderName) {
       // Call your API to create the notebook, or any other logic you need
       console.log('Creating a new notebook:', folderName);
-      createDocument('', folderName, 'folder', null); // Passing the folder name to your function
+      createDocument(null, folderName, 'folder', null); // Passing the folder name to your function
     }
   };
 
@@ -84,10 +84,10 @@ const Modules: React.FC = () => {
     
           console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName);
           // Call your function to handle the file content
-          createDocument(text, file.name, 'file', selectedNotebookId); // Passing the file content and other details to your function
+          createDocument(file, file.name, 'file', selectedNotebookId as string); // Passing the file content and other details to your function
         };
         reader.readAsText(file); // Read the file's content as text
-      } 
+      }
       else if (fileType.startsWith('image/')) {
         // It's an image file (any image format)
         // Handle image file
@@ -99,20 +99,25 @@ const Modules: React.FC = () => {
     }
   };
   
-  const createDocument = async (documentContent: string, fileName: string, fileType: string, parentId: string | null) => {
+  const createDocument = async (file: File | null, fileName: string, fileOrFolder: string, parentId: string | null) => {
     try {
+      // Create a FormData object
+      const formData = new FormData();
+      if (file !== null) {
+        formData.append('file', file);  // Append the file only if it's not null
+      }
+      formData.append('name', fileName);
+      formData.append('fileOrFolder', fileOrFolder);
+      if (parentId !== null) {
+        formData.append('parentId', parentId);
+      }
+
       const response = await fetch('http://127.0.0.1:5000/documents/create', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // if using token-based auth
         },
-        body: JSON.stringify({
-          name: fileName,
-          content: documentContent,
-          type: fileType,
-          parentId: parentId // Use the passed parentId
-        }), 
+        body: formData,  // Use the FormData object as the request body
       });
   
       if (!response.ok) {
@@ -120,8 +125,10 @@ const Modules: React.FC = () => {
         return;
       }
   
-      const data = await response.json();
-      console.log('Document created:', data);
+      // Process the response
+      const responseData = await response.json();
+      console.log('Document created:', responseData);
+
       setShowAlert(true);
       renderDocCreation();
       console.log("Alert message sent.")
