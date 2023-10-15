@@ -10,10 +10,6 @@ const HomePage: React.FC = () => {
   const [selectedFileContent, setSelectedFileContent] = useState<string | null>(null);
   const [selectedFileName, setSelectedFileName] = useState<string | undefined>(undefined);
 
-  // const handleFileSelect = (content: string) => {
-  //   setSelectedFileContent(content);
-  // };
-
   const handleFileContentUpdate = (content: string | null, fileName: string) => {
     setSelectedFileContent(content);
     setSelectedFileName(fileName);

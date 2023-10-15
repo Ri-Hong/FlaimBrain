@@ -6,8 +6,6 @@ interface DocumentsProps {
   onFileClick: (content: string | null, fileName: string) => void;
 }
 
-//const Documents: React.FC = () => {
-//const Documents = ({ onFileClick }: { onFileClick: (content: string | null) => void }) => {
 const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
   interface ITree {
     name: string;
@@ -27,7 +25,6 @@ const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
   const [initialTree, setInitialTree] = useState<ITree | null>(null);
   const [nameIdMap, setNameIdMap] = useState<Record<string, string>>({});
   const [nameContentMap, setNameContentMap] = useState<Record<string, string>>({});
-  //const [selectedFileContent, setSelectedFileContent] = useState<string | null>(null);
 
   // Populate the hashmap after documents are fetched
   const createNameIdMap = useCallback((documents: IDocument[]) => {
@@ -160,7 +157,6 @@ const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
     console.log("doc contents: " + nameContentMap[nodeData.name]);
     const content = nameContentMap[nodeData.name];
     onFileClick(content, nodeData.name);
-    //setSelectedFileContent(content);
   };
 
   return (
