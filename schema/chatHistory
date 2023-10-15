@@ -1,0 +1,275 @@
+{
+  "count": 24,
+  "fields": [
+    {
+      "name": "_id",
+      "path": [
+        "_id"
+      ],
+      "count": 24,
+      "type": "ObjectId",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "ObjectId",
+          "path": [
+            "_id"
+          ],
+          "count": 24,
+          "probability": 1,
+          "unique": 24,
+          "hasDuplicates": false,
+          "values": [
+            "652bb7c8e21c40414f93bdf3",
+            "652bd9f343eb5464e3401b06",
+            "652bc1782f0689432cca834b",
+            "652bc69c0b9c4fd69b3e0471",
+            "652bda060b9c4fd69b3e0491",
+            "652bb81be21c40414f93bdfb",
+            "652bea2ce56d640494e69114",
+            "652bb836e21c40414f93bdff",
+            "652bc0ff2f0689432cca8339",
+            "652bd9f543eb5464e3401b08",
+            "652bbcf4942fd805e80ee330",
+            "652bb818e21c40414f93bdf9",
+            "652bb831e21c40414f93bdfd",
+            "652bbc72942fd805e80ee307",
+            "652bc1012f0689432cca833b",
+            "652bc17a2f0689432cca834d",
+            "652bbcf2942fd805e80ee32e",
+            "652bb7cae21c40414f93bdf5",
+            "652bb964ff30f6dbae4d112e",
+            "652bc6960b9c4fd69b3e046f",
+            "652bda0b0b9c4fd69b3e0493",
+            "652bbc75942fd805e80ee309",
+            "652bb969ff30f6dbae4d1130",
+            "652bea2fe56d640494e69116"
+          ],
+          "bsonType": "ObjectId"
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "path": [
+        "content"
+      ],
+      "count": 24,
+      "type": "String",
+      "probability": 1,
+      "hasDuplicates": true,
+      "types": [
+        {
+          "name": "String",
+          "path": [
+            "content"
+          ],
+          "count": 24,
+          "probability": 1,
+          "unique": 22,
+          "hasDuplicates": true,
+          "values": [
+            "What is the document about then",
+            "Hello",
+            "What is psudoargon",
+            "The document discusses the discovery of Quasixenon, a significant achievement that has unlocked new possibilities in chemical engineering and materials science. This discovery highlights the need for ongoing exploration in science, even in theoretical or unexplored areas. The story of Quasixenon is presented as an inspiring example for upcoming chemists and a demonstration of the limitless opportunities for discovery in the field of chemistry.",
+            "summarize this text",
+            "I'm sorry, but \"pseudoargon\" does not appear to be recognized in any scientific, chemical or general knowledge context. It's possible that there may be a typo or misunderstanding in the term. Please provide more context or check the term.",
+            "",
+            "I'm sorry, but there's no available information regarding \"pseudoxenon\". It might be a typo or a term that doesn't exist in the scientific literature. Xenon is a known noble gas, but \"pseudoxenon\" is not recognized.",
+            "Who is the chubby bunny meister",
+            "Hello! How can I assist you today?",
+            "I'm sorry, but the text does not provide any information about a substance called \"psudoargon\".",
+            "What is pseudoargon",
+            "what is pseudoxenon",
+            "What is pseudoargon",
+            "I'm sorry, but the information provided does not include details about who the \"chubby bunny meister\" is.",
+            "I'm sorry, but the text doesn't provide any information about an element called pseudoargon.",
+            "What is psudoargon",
+            "I'm sorry, but there's no document provided in the context for me to interpret. Could you please provide more details?",
+            "what is quasixenon",
+            "summarize this document",
+            "The text discusses the significant discovery of Quasixenon, which has opened up new opportunities in chemical engineering and materials science. This discovery highlights the importance of ongoing exploration in science, even in theoretical or previously unexplored areas. The story of Quasixenon is presented as an inspiration for future chemists and evidence of the limitless potential for discovery in the realm of chemistry.",
+            "I'm sorry, but the information provided does not mention or provide any details about \"pseudoargon\".",
+            "Quasixenon is a new element that was discovered in the year 2023. It has the chemical symbol Qx and an atomic number of 139. What makes Quasixenon unique is its ability to exist in a quasi-state between a noble gas and a halogen. It was discovered by a team of researchers at the PseudoElemental Research Institute.",
+            "You did not provide a question for me to answer. Could you please ask a question related to the provided context?"
+          ],
+          "bsonType": "String"
+        }
+      ]
+    },
+    {
+      "name": "createdAt",
+      "path": [
+        "createdAt"
+      ],
+      "count": 24,
+      "type": "Date",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "Date",
+          "path": [
+            "createdAt"
+          ],
+          "count": 24,
+          "probability": 1,
+          "unique": 24,
+          "hasDuplicates": false,
+          "values": [
+            "2023-10-15T09:58:32.774Z",
+            "2023-10-15T12:24:19.435Z",
+            "2023-10-15T10:39:52.200Z",
+            "2023-10-15T11:01:48.035Z",
+            "2023-10-15T12:24:38.635Z",
+            "2023-10-15T09:59:55.869Z",
+            "2023-10-15T13:33:32.954Z",
+            "2023-10-15T10:00:22.366Z",
+            "2023-10-15T10:37:51.710Z",
+            "2023-10-15T12:24:21.326Z",
+            "2023-10-15T10:20:36.430Z",
+            "2023-10-15T09:59:52.437Z",
+            "2023-10-15T10:00:17.959Z",
+            "2023-10-15T10:18:26.156Z",
+            "2023-10-15T10:37:53.745Z",
+            "2023-10-15T10:39:54.901Z",
+            "2023-10-15T10:20:34.529Z",
+            "2023-10-15T09:58:34.664Z",
+            "2023-10-15T10:05:24.007Z",
+            "2023-10-15T11:01:42.104Z",
+            "2023-10-15T12:24:43.684Z",
+            "2023-10-15T10:18:29.460Z",
+            "2023-10-15T10:05:29.224Z",
+            "2023-10-15T13:33:35.951Z"
+          ],
+          "bsonType": "Date"
+        }
+      ]
+    },
+    {
+      "name": "documentName",
+      "path": [
+        "documentName"
+      ],
+      "count": 24,
+      "type": "String",
+      "probability": 1,
+      "hasDuplicates": true,
+      "types": [
+        {
+          "name": "String",
+          "path": [
+            "documentName"
+          ],
+          "count": 24,
+          "probability": 1,
+          "unique": 6,
+          "hasDuplicates": true,
+          "values": [
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "a1 notes.txt",
+            "Psudoargon.pdf",
+            "labels.txt",
+            "a1 notes.txt",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "Quasixenon.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "The Chubby Bunny Meister.txt",
+            "a1 notes.txt",
+            "Psudoargon.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "The Chubby Bunny Meister.txt",
+            "Psudoargon.pdf",
+            "Psudoargon.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "labels.txt",
+            "a1 notes.txt",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "The Unveiling of Pseudoargon_ A Leap in Theoretical Chemistry.pdf",
+            "Quasixenon.pdf"
+          ],
+          "bsonType": "String"
+        }
+      ]
+    },
+    {
+      "name": "user_id",
+      "path": [
+        "user_id"
+      ],
+      "count": 24,
+      "type": "Document",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "Document",
+          "path": [
+            "user_id"
+          ],
+          "count": 24,
+          "probability": 1,
+          "bsonType": "Document",
+          "fields": [
+            {
+              "name": "username",
+              "path": [
+                "user_id",
+                "username"
+              ],
+              "count": 24,
+              "type": "String",
+              "probability": 1,
+              "hasDuplicates": true,
+              "types": [
+                {
+                  "name": "String",
+                  "path": [
+                    "user_id",
+                    "username"
+                  ],
+                  "count": 24,
+                  "probability": 1,
+                  "unique": 1,
+                  "hasDuplicates": true,
+                  "values": [
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a"
+                  ],
+                  "bsonType": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
