@@ -9,6 +9,7 @@ import os
 
 from routes.auth import auth  # Importing the Blueprint
 from routes.documents import documents  # Importing the Blueprint
+# from routes.chat import chat  # Importing the Blueprint
 
 dotenv.load_dotenv()
 
