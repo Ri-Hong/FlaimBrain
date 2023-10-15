@@ -101,6 +101,10 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
       <div className="messages">
         {responses.map((response, index) => (
           <div key={index} className={`message ${response.sender}`}>
+            <span className="messenger-name">
+              {response.sender === 'bot' ? 'FlaimeBrain Bot' : 'You'}
+            </span>
+            <br /> {/* Add a line break */}
             {response.content}
           </div>
         ))}
