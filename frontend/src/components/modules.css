@@ -58,6 +58,15 @@
     color: #EA855A;
     padding-inline-end: 10px;
 }
+.logout-icon {
+    color: #444;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 20px;
+}
 .overlay {
     position: fixed;
     top: 0;

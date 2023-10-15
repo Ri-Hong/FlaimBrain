@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import './modules.css';
-import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon, DocumentMagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon, DocumentMagnifyingGlassIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
 import Alert from '@mui/material/Alert';
-
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -225,11 +224,11 @@ const Modules: React.FC = () => {
       <div className="inline-container-buttons">
         <button className="basic-button" onClick={handleButtonClick}>Get OCR Text</button>
         <div>
-            <label className="inline-label" htmlFor="file-upload">
+            <label className="inline-label" htmlFor="file-upload2">
               <DocumentMagnifyingGlassIcon className="large-icon"/>
               Choose OCR File
             </label>
-            <input id="file-upload" type="file" style={{display:'none'}} ref={fileInputRef} /> 
+            <input id="file-upload2" type="file" style={{display:'none'}} ref={fileInputRef} /> 
         </div>
       </div>
       <Modal
@@ -258,6 +257,10 @@ const Modules: React.FC = () => {
           <FireIcon className="small-icon"/>
           <span className="invisible-button-label" onClick={() => sendToChat("mock assessments")}>Create a mock assessment</span>
         </div>
+      </div>
+
+      <div>
+        <ArrowLeftOnRectangleIcon className="logout-icon"/>
       </div>
 
     </div>
