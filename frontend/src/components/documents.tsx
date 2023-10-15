@@ -137,17 +137,18 @@ const Documents: React.FC = () => {
   
 
   const onNameClick = (opts: any) => {
-    opts.defaultOnClick();
+    opts.defaultOnClick(); // What does defaultOnClick do - opens the edit buttons
     const { nodeData } = opts;
     console.log('Clicked on:', nodeData);
-    if (nodeData.type === 'file') {
+    console.log(nodeData.type);
+    if (nodeData.type === 'file') { // Not being detected, need to detect type
       console.log('Clicked on file:', nodeData.name);
     }
   };
 
   return (
     <section className="file-structure">
-      <h2>File Structure</h2>
+      <h2>my files</h2>
       <FolderTree
         data={initialTree || defaultTree}
         showCheckbox={false}

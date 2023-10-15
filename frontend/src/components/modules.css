@@ -1,0 +1,111 @@
+.button-container {
+    display: flex;
+  }
+.button-container-bottom-right {
+    position: absolute;
+    right: 5%;
+    top: 80%;
+}
+.basic-button {
+    border: 1px solid #D2D2D2;
+    background-color: #E4E4E4;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    color: #000000;
+}
+.basic-button:hover {
+    background-color:#EA855A;
+    border: 1px solid #e66f3d;
+}
+.cancel-button { 
+    border: 1px solid #898989;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+.invisible-button {
+    width: 17%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    white-space: normal;
+    text-align: center;
+    min-height: 48px;
+    min-width: 48px;
+    color: #000000;
+}
+.large-icon {
+    width: 64px;
+    height: 64px;
+    color: #EA855A;
+}
+.medium-icon {
+    width: 40px; 
+    height: 40px;
+    color: #EA855A;
+}
+.small-icon {
+    width: 20px;
+    height: 20px;
+    color: #EA855A;
+    padding-inline-end: 10px;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(61, 61, 61, 0.6);
+}
+.basic-modal {
+    width: 40%;
+    height: 40%;
+    background-color: white;
+    opacity: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgb(56, 56, 56);
+}
+label {
+    width: 17%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    white-space: normal;
+    text-align: center;
+    min-height: 48px;
+    min-width: 48px;
+}
+.module-container {
+    display: flex;
+    flex-direction: column;
+}
+.inline-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 20px;
+}
+.invisible-button-label {
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+}
+.invisible-button-label:hover {
+    color: #EA855A;
+}

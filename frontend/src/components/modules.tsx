@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
+import './modules.css';
+import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon } from '@heroicons/react/24/solid';
+import Alert from '@mui/material/Alert';
+
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -12,6 +16,7 @@ const Modules: React.FC = () => {
   const selectedFolder = folders.find(folder => folder.id === selectedNotebookId);
   const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; // Fallback in case the ID is not found  
 
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     retrieveFolders();
@@ -112,24 +117,41 @@ const Modules: React.FC = () => {
   
       const data = await response.json();
       console.log('Document created:', data);
+      setShowAlert(true);
+      renderDocCreation();
+      console.log("Alert message sent.")
     } catch (error) {
       console.error('An error occurred:', error);
     }
   };
-  
+
+  const renderDocCreation = () => {
+    return (
+      <div>
+          <Alert severity="success">Successfully created</Alert>
+      </div>
+    );
+  };
 
   const renderNotebookSelection = () => {
     return (
       <div>
-        <h2>Select a Notebook</h2>
-        {folders.map(folder => (
-          <button key={folder.id} onClick={() => handleNotebookSelection(folder.id)}>
-            {folder.name}
+        <h2>select a notebook</h2>
+        <div className="button-container">
+          {folders.map(folder => (
+            <button className="invisible-button" key={folder.id} onClick={() => handleNotebookSelection(folder.id)}>
+              <FolderOpenIcon className="large-icon"/>
+              {folder.name}
+            </button>
+          ))}
+          <button className="invisible-button" onClick={createNewNotebook}> 
+            <PlusCircleIcon className="large-icon"/>
+            New Notebook
           </button>
-        ))}
-        <button onClick={createNewNotebook}>
-          Create New Notebook
-        </button>
+        </div>
+        <div className="button-container-bottom-right">
+          <button className="cancel-button" onClick={closeModal}>Cancel</button>
+        </div>
       </div>
     );
   };
@@ -140,10 +162,17 @@ const Modules: React.FC = () => {
 
     return (
       <div>
-        <h2>Upload a file to {selectedFolderName}</h2>
-        
-        <input type="file" accept=".txt" onChange={createNewNote} />
-
+        <div>
+          <h2>upload a file to: {selectedFolderName}</h2>
+          <label htmlFor="file-upload">
+            <DocumentPlusIcon className="large-icon"/>
+            Browse Files
+          </label>
+          <input id="file-upload" type="file" accept=".txt" style={{display:'none'}} onChange={createNewNote} />
+        </div>
+        <div className="button-container-bottom-right">
+          <button className="cancel-button" onClick={closeModal}>Cancel</button>
+        </div>
       </div>
     );
   };
@@ -191,19 +220,45 @@ const Modules: React.FC = () => {
     }
   };
   
+  const sendToChat = (moduleAction: string) => {
+    // send to chat interface after user clicks module 
+    console.log("Sending to chat: " + moduleAction);
+  };
+
+
   return (
     <div>
-      <button onClick={openModal}>Upload File</button>
+      <button className="basic-button" onClick={openModal}>Upload File</button>
       <input type="file" ref={fileInputRef} /> 
       <button onClick={handleButtonClick}>Get OCR Text</button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="File Upload Modal"
-        // Other modal options as needed
+        overlayClassName={"overlay"}
+        className={"basic-modal"}
       >
         {!selectedNotebookId ? renderNotebookSelection() : renderFileUpload()}
       </Modal>
+      <div className="module-container">
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("summarize")}>Summarize</span>
+        </div>
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("flashcards")}>Flashcards</span>
+        </div>
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("study guide")}>Create a study guide</span>
+        </div>
+        <div className="inline-container"> 
+          <FireIcon className="small-icon"/>
+          <span className="invisible-button-label" onClick={() => sendToChat("mock assessments")}>Create a mock assessment</span>
+        </div>
+      </div>
+
     </div>
   );
 };

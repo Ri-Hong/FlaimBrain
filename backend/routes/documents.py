@@ -4,7 +4,38 @@ from datetime import datetime
 from bson import ObjectId
 from db import get_db  # Ensure you have this helper function to get a db instance
 
+from datetime import datetime
+from pymongo import MongoClient
+from langchain.document_loaders import PyMuPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+
 documents = Blueprint('documents', __name__)
+
+
+def upload_data_to_vector_db(pdf_path, persist_directory):
+    # Load the PDF document
+    loader = PyMuPDFLoader(pdf_path)
+    documents = loader.load()
+
+    # Split the document text into chunks
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=10)
+    texts = text_splitter.split_documents(documents)
+
+    # Generate embeddings
+    embeddings = OpenAIEmbeddings()
+
+    # Store vectors in Chroma
+    vectordb = Chroma.from_documents(documents=texts, 
+                                     embedding=embeddings,
+                                     persist_directory=persist_directory)
+    vectordb.persist()
+    return vectordb
+
+# Usage:
+# vectordb = upload_data(pdf_path, persist_directory)
+
 
 @documents.route('/create', methods=['POST'])
 @jwt_required()
