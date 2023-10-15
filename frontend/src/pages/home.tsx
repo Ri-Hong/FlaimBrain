@@ -8,13 +8,15 @@ import ChatPane from '../components/ChatPane';
 
 const HomePage: React.FC = () => {
   const [selectedFileContent, setSelectedFileContent] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | undefined>(undefined);
 
   // const handleFileSelect = (content: string) => {
   //   setSelectedFileContent(content);
   // };
 
-  const handleFileContentUpdate = (content: string | null) => {
+  const handleFileContentUpdate = (content: string | null, fileName: string) => {
     setSelectedFileContent(content);
+    setSelectedFileName(fileName);
   };
 
   return (
@@ -27,7 +29,7 @@ const HomePage: React.FC = () => {
         </section>
       </aside>
       <section className="file-content">
-        <FileContentViewer content={selectedFileContent} />
+        <FileContentViewer content={selectedFileContent} fileName={selectedFileName} />
       </section>
       <section className="chat-interface">
         <ChatPane/>

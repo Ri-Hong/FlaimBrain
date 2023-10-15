@@ -3,7 +3,7 @@ import FolderTree from 'react-folder-tree';
 import "react-folder-tree/dist/style.css";
 
 interface DocumentsProps {
-  onFileClick: (content: string | null) => void;
+  onFileClick: (content: string | null, fileName: string) => void;
 }
 
 //const Documents: React.FC = () => {
@@ -159,7 +159,7 @@ const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
     console.log("docID of file clicked: " + nameIdMap[nodeData.name]);
     console.log("doc contents: " + nameContentMap[nodeData.name]);
     const content = nameContentMap[nodeData.name];
-    onFileClick(content);
+    onFileClick(content, nodeData.name);
     //setSelectedFileContent(content);
   };
 
