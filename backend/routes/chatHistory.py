@@ -18,14 +18,14 @@ def save_message_endpoint():
     
     db.chatHistory.insert_one({'user_id': user_id, 'content': content, 'documentName': documentName, 'createdAt': datetime.utcnow()})
 
-    return jsonify(message="User registered successfully"), 201
+    return jsonify(message="Message saved successfully"), 201
 
 
 @chatHistory.route('/get-chat-history/<string:document_name>', methods=['GET'])
 @jwt_required()
-def get_chat_history(documentName):
+def get_chat_history(document_name):
     db = get_db()
-    chat_history = list(db.chatHistory.find({"documentName": documentName}).sort('created_at', ASCENDING))
+    chat_history = list(db.chatHistory.find({"documentName": document_name}).sort('created_at', ASCENDING))
     for message in chat_history:
         message['_id'] = str(message['_id'])  # Convert ObjectId to string
     return jsonify(chat_history)
