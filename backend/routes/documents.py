@@ -25,6 +25,8 @@ def upload_data_to_vector_db(file, persist_directory):
     temp_file_path = os.path.join("/tmp", filename)
     file.save(temp_file_path)
     
+    print("TFP: ", temp_file_path)
+
     try:
         file_extension = os.path.splitext(filename)[1].lower()
         if file_extension == '.pdf':
@@ -53,6 +55,8 @@ def upload_data_to_vector_db(file, persist_directory):
         text_content = document.page_content
     finally:
         os.remove(temp_file_path)  # Delete the temporary file
+    print(f"Embeddings for {filename} added to the vector database.")
+
     return text_content
 
 
@@ -64,7 +68,7 @@ def create_document():
 
 
     file = request.files['file'] if 'file' in request.files else None
-    name = request.form['name']
+    fileName = request.form['fileName']
     file_or_folder = request.form['fileOrFolder']
     parent_id = request.form['parentId'] if 'parentId' in request.form else None
 
@@ -72,7 +76,7 @@ def create_document():
 
     new_document = {
         "userId": user_id,
-        "name": name,
+        "name": fileName,
         "type": file_or_folder,
         "parentId": parent_id,
         "children": [],
