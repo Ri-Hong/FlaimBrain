@@ -7,16 +7,20 @@ import Modules from '../components/modules'; // Adjust the import
 import ChatPane from '../components/ChatPane';
 
 const HomePage: React.FC = () => {
-  const [selectedFileContent, setSelectedFileContent] = useState('');
+  const [selectedFileContent, setSelectedFileContent] = useState<string | null>(null);
 
-  const handleFileSelect = (content: string) => {
+  // const handleFileSelect = (content: string) => {
+  //   setSelectedFileContent(content);
+  // };
+
+  const handleFileContentUpdate = (content: string | null) => {
     setSelectedFileContent(content);
   };
 
   return (
     <div className="home-container">
       <aside className="sidebar">
-        <Documents/>
+        <Documents onFileClick={handleFileContentUpdate}/>
         <section className="modules">
           <h2>modules</h2>
           <Modules></Modules>

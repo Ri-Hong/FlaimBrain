@@ -2,8 +2,13 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import FolderTree from 'react-folder-tree';
 import "react-folder-tree/dist/style.css";
 
-const Documents: React.FC = () => {
+interface DocumentsProps {
+  onFileClick: (content: string | null) => void;
+}
 
+//const Documents: React.FC = () => {
+//const Documents = ({ onFileClick }: { onFileClick: (content: string | null) => void }) => {
+const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
   interface ITree {
     name: string;
     children?: ITree[]; // Children are optional and are of type ITree as well
@@ -14,20 +19,26 @@ const Documents: React.FC = () => {
     name: string;
     parentId: string | null;
     children?: IDocument[];
+    content: string;
   }
 
   const prevTreeRef = useRef<ITree | null>(null);
   const defaultTree: ITree = { name: "Loading...", children: [] };
   const [initialTree, setInitialTree] = useState<ITree | null>(null);
   const [nameIdMap, setNameIdMap] = useState<Record<string, string>>({});
+  const [nameContentMap, setNameContentMap] = useState<Record<string, string>>({});
+  //const [selectedFileContent, setSelectedFileContent] = useState<string | null>(null);
 
   // Populate the hashmap after documents are fetched
   const createNameIdMap = useCallback((documents: IDocument[]) => {
     const newNameIdMap: Record<string, string> = {};
+    const newNameContentMap: Record<string, string> = {};
     documents.forEach(doc => {
       newNameIdMap[doc.name] = doc._id;
+      newNameContentMap[doc.name] = doc.content;
     });
     setNameIdMap(newNameIdMap);
+    setNameContentMap(newNameContentMap);
   }, []);
 
   useEffect(() => {
@@ -140,10 +151,16 @@ const Documents: React.FC = () => {
     opts.defaultOnClick(); // What does defaultOnClick do - opens the edit buttons
     const { nodeData } = opts;
     console.log('Clicked on:', nodeData);
-    console.log(nodeData.type);
+    console.log('nodaData type: ' + nodeData.type);
     if (nodeData.type === 'file') { // Not being detected, need to detect type
       console.log('Clicked on file:', nodeData.name);
     }
+    // put content of file clicked into fileContentViewer 
+    console.log("docID of file clicked: " + nameIdMap[nodeData.name]);
+    console.log("doc contents: " + nameContentMap[nodeData.name]);
+    const content = nameContentMap[nodeData.name];
+    onFileClick(content);
+    //setSelectedFileContent(content);
   };
 
   return (

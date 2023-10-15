@@ -1,11 +1,11 @@
 // FileContentViewer.tsx
 import React from 'react';
 
-const FileContentViewer: React.FC<{ content: string }> = ({ content }) => {
+const FileContentViewer: React.FC<{ content?: string | null }> = ({ content }) => {
   return (
     <section className="file-content-viewer">
       <h2>file content</h2>
-      <div>{content}</div>
+      <pre>{content}</pre>
     </section>
   );
 };
