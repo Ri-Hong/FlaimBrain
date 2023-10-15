@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import './modules.css';
 import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon, DocumentMagnifyingGlassIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
 import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -16,6 +17,12 @@ const Modules: React.FC = () => {
   const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; // Fallback in case the ID is not found  
 
   const [showAlert, setShowAlert] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
 
   useEffect(() => {
     retrieveFolders();
@@ -267,8 +274,8 @@ const Modules: React.FC = () => {
       </div>
 
       <div>
-        <ArrowLeftOnRectangleIcon className="logout-icon"/>
-      </div>
+        <ArrowLeftOnRectangleIcon className="logout-icon" onClick={handleLogout}/>
+      </div> 
 
     </div>
   );
