@@ -25,4 +25,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+/backend/routes/apikey.json
 backend/routes/apikey.json
+apikey.json
