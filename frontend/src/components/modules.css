@@ -12,6 +12,7 @@
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
+    color: #000000;
 }
 .basic-button:hover {
     background-color:#EA855A;
@@ -20,6 +21,7 @@
 .cancel-button { 
     border: 1px solid #898989;
     background-color: #FFFFFF;
+    color: #000000;
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
@@ -37,6 +39,7 @@
     text-align: center;
     min-height: 48px;
     min-width: 48px;
+    color: #000000;
 }
 .large-icon {
     width: 64px;
