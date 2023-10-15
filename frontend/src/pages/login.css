@@ -9,10 +9,18 @@
     margin-bottom: 10px;
 }
 
-button {
-    padding: 10px;
+
+.login-buttons {
     margin-top: 10px;
     margin-inline-end: 10px;
+    background-color: black;
+    color: white;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+.login-buttons:hover {
+    background-color: rgb(37, 37, 37);
 }
 
 .login-header {
@@ -20,8 +28,18 @@ button {
     margin-bottom: 20px;
 }
 
-.input-container label {
-    margin-bottom: 5px; 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-lable {
+    display: flex;
+    justify-content: end;
+    padding-bottom: 10px;
+    min-height: 10px;
 }
   
 .input-container input {

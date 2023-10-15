@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       <h2 className="login-header">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username:</label>
+          <label className='input-lable'>Username:</label>
           <input
             type="text"
             name="username"
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
           />
         </div>
         <div className="input-container">
-          <label>Password:</label>
+          <label className='input-lable'>Password:</label>
           <input
             type="password"
             name="password"
@@ -88,9 +88,9 @@ const Login: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button className='login-buttons' type="submit">Login</button>
 
-        <button onClick={goToRegister}>Go To Register</button>
+        <button className='login-buttons' onClick={goToRegister}>Go To Register</button>
       </form>
     </div>
   );
