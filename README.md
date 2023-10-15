@@ -1,5 +1,7 @@
 # 🔥🧠 FlaimBrain: The Future of Academic Excellence
 
+[API Endpoint Documentation](https://documenter.getpostman.com/view/16996416/2s9Y
+
 Every student embarks on a unique academic journey, filled with challenges that span from comprehending feedback on assignments to acing exams. Recognizing knowledge gaps is one thing, but bridging them effectively? That's a monumental task. Enter **FlaimBrain**—your personalized AI-powered academic mentor, tailored to support every student's individual learning curve. 🚀
 
 ## 🤖 FlaimBrain At A Glance
