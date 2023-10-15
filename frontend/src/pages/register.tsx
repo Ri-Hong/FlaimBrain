@@ -76,8 +76,8 @@ const Register: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
-        <button onClick={goToLogin}>Go To Login</button>
+        <button className="login-buttons" type="submit">Register</button>
+        <button className="login-buttons" onClick={goToLogin}>Go To Login</button>
       </form>
     </div>
   );
