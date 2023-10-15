@@ -1,6 +1,16 @@
 .button-container {
     display: flex;
   }
+.button-container2 {
+    flex:auto;
+    display: flex;
+    padding: 20px;
+    width:fit-content;
+}
+.invisible-button:hover {
+    background-color:#dadada;
+    color: #000000;
+}
 .button-container-bottom-right {
     position: absolute;
     right: 5%;
@@ -40,6 +50,13 @@
     text-align: center;
     min-height: 48px;
     min-width: 48px;
+    color: #000000;
+}
+.invisible-button2 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
     color: #000000;
 }
 .large-icon {
@@ -109,7 +126,17 @@ label {
     width: auto;
     text-align: left;
     padding-top: 10px;
+    overflow: auto;
 }
+.inline-label2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    width: fit-content;
+}
+
 .module-container {
     display: flex;
     flex-direction: column;

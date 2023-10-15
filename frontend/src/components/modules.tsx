@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import './modules.css';
-import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon, DocumentMagnifyingGlassIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
+import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon, DocumentMagnifyingGlassIcon, ArrowLeftOnRectangleIcon, EyeIcon, ArrowUpOnSquareIcon, ArrowUpOnSquareStackIcon } from '@heroicons/react/24/solid';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 
@@ -235,16 +235,22 @@ const Modules: React.FC = () => {
 
   return (
     <div>
-      <button className="basic-button" onClick={openModal}>Upload File</button>
-      <div className="inline-container-buttons">
-        <button className="basic-button" onClick={handleButtonClick}>Get OCR Text</button>
-        <div>
-            <label className="inline-label" htmlFor="file-upload2">
-              <DocumentMagnifyingGlassIcon className="large-icon"/>
-              Choose OCR File
-            </label>
-            <input id="file-upload2" type="file" style={{display:'none'}} ref={fileInputRef} /> 
-        </div>
+      {/*<button className="basic-button" onClick={openModal}>Upload File</button>*/}
+      <div className="button-container">
+        <button className="invisible-button2" onClick={openModal}>
+          <label className="inline-label2">
+            <ArrowUpOnSquareStackIcon className="large-icon"/>
+            Upload New File
+          </label>
+        </button>
+        {/*<button className="basic-button" onClick={handleButtonClick}>Get OCR Text</button>*/}
+        <button className="invisible-button2">
+        <label className="inline-label2" htmlFor="file-upload2">
+            <EyeIcon className="large-icon"/>
+            Choose OCR File
+          </label>
+          <input id="file-upload2" type="file" style={{display:'none'}} ref={fileInputRef} /> 
+        </button>
       </div>
       <Modal
         isOpen={modalIsOpen}
