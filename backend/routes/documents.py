@@ -18,7 +18,7 @@ documents = Blueprint('documents', __name__)
 
 # Creates an embedding, stores it in Chroma, and returns the text content of the document
 def upload_data_to_vector_db(file, persist_directory):
-    if file.filename == '':
+    if not file or file.filename == '':
         return "No selected file", 400
     # Save the file to a temporary location
     filename = secure_filename(file.filename)

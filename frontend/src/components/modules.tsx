@@ -77,6 +77,7 @@ const Modules: React.FC = () => {
   };
 
   const createNewNote = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("CREATING NEW NOTE");
     const file = event.target.files?.[0]; // Get the first file from the FileList object, if present
     
     if (file) {
@@ -113,7 +114,7 @@ const Modules: React.FC = () => {
       if (file !== null) {
         formData.append('file', file);  // Append the file only if it's not null
       }
-      formData.append('name', fileName);
+      formData.append('fileName', fileName);
       formData.append('fileOrFolder', fileOrFolder);
       if (parentId !== null) {
         formData.append('parentId', parentId);
