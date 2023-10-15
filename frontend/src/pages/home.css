@@ -28,11 +28,6 @@
   width: 30%; /* reduced width */
   background: #f4f4f4;
   overflow: auto;
-<<<<<<< HEAD
-  padding: 20px;
-  box-shadow: -1px 1px 5px rgb(209, 209, 209);
-=======
->>>>>>> 722c545e (Added vectorDB)
 }
 
 h2 {

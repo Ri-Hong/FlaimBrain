@@ -26,11 +26,7 @@ const HomePage: React.FC = () => {
         <FileContentViewer content={selectedFileContent} />
       </section>
       <section className="chat-interface">
-<<<<<<< HEAD
-      <h2>chat interface</h2>
-=======
         <ChatPane/>
->>>>>>> 722c545e (Added vectorDB)
       </section>
     </div>
   );
