@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 
 // Make sure to bind modal to your app element (http://reactcommunity.org/react-modal/accessibility/)
@@ -148,9 +148,54 @@ const Modules: React.FC = () => {
     );
   };
 
+  // const handleButtonClick = async () => {
+  //   try {
+  //     const response = await fetch("http://127.0.0.1:5000/ocr/ocr", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     const text = await response.text();
+  //     alert(text);
+  //   } 
+  //   catch (error) {
+  //     alert("Error occurred while fetching OCR data.");
+  //     console.error("There was an error with the OCR request:", error);
+  //   }
+  // }
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = async () => {
+    try {
+      if (!fileInputRef.current?.files?.length) {
+        alert('Please select an image first.');
+        return;
+      }
+
+      const file = fileInputRef.current.files[0];
+      const imageData = new FormData();
+      imageData.append('image', file);
+
+      const response = await fetch("http://127.0.0.1:5000/ocr/ocr", {
+        method: "POST",
+        body: imageData,
+      });
+
+      const text = await response.text();
+      alert(text);
+    } catch (error) {
+      alert("Error occurred while fetching OCR data.");
+      console.error("There was an error with the OCR request:", error);
+    }
+  };
+  
   return (
     <div>
       <button onClick={openModal}>Upload File</button>
+      <input type="file" ref={fileInputRef} /> 
+      <button onClick={handleButtonClick}>Get OCR Text</button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
