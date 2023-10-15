@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './ChatPane.css';
 
-import axios from 'axios';
-
 interface ChatPaneProps {
   fileName: string;
+}
+
+interface MessageObject {
+  _id: string;
+  content: string;
+  createdAt: string;
+  documentName: string;
+  user_id: {
+    username: string;
+  };
 }
 
 const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
   const [message, setMessage] = useState<string>('');
   const [responses, setResponses] = useState<{ sender: string, content: string }[]>([]);
 
-  const [currentOpenFileName, setCurrentOpenFileName] = useState<string>('sampleOpen.txt');
-
   const getChatHistory = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/chatHistory/get-chat-history/` + currentOpenFileName, {
+      const response = await fetch(`http://127.0.0.1:5000/chatHistory/get-chat-history/` + fileName, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -28,18 +34,27 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
       }
   
       const responseData = await response.json();
+      console.log("Response chat history", responseData);  // Log the response data to the console
   
-      setResponses(responseData.chatHistory);
+      // Since responseData is an array, map over it directly
+      const formattedResponses = responseData.map((message: any, index: number) => {
+        const sender = index % 2 === 0 ? 'user' : 'bot';  // Alternate between 'user' and 'bot'
+        return { sender, content: message.content };
+      });
+  
+      setResponses(formattedResponses);
     
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
   };
+  
 
   useEffect(() => {
-    console.log('File changed to:', currentOpenFileName);
+    console.log('File changed to:', fileName);
+    setResponses([]);  // Clear the messages
     getChatHistory();
-  }, [currentOpenFileName]);
+  }, [fileName]);
 
 
   const saveMessage = async (content: string) => {
@@ -52,7 +67,7 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
         },
         body: JSON.stringify({
           content: content,
-          documentName: currentOpenFileName,
+          documentName: fileName,
         }),
       });
     } catch (error) {
@@ -62,7 +77,7 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
 
   const handleSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();  // Prevent the form from being submitted the traditional way
-    setResponses(prevResponses => [...prevResponses, { sender: 'user', content: message }]);
+    setResponses(prevResponses => (prevResponses ? [...prevResponses, { sender: 'user', content: message }] : []));
     saveMessage(message);
     setMessage('');  // Clear the input field
 
@@ -86,8 +101,8 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
   
       const responseData = await response.json();
       const reply = responseData.response;
-  
-      setResponses(prevResponses => [...prevResponses, { sender: 'bot', content: reply }]);
+
+      setResponses(prevResponses => (prevResponses ? [...prevResponses, { sender: 'bot', content: message }] : []));
       saveMessage(reply);
 
     } catch (error) {
@@ -99,7 +114,7 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
   return (
     <div className="chat-pane">
       <div className="messages">
-        {responses.map((response, index) => (
+        {responses && responses.map((response, index) => (
           <div key={index} className={`message ${response.sender}`}>
             {response.content}
           </div>
