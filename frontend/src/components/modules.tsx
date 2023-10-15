@@ -72,28 +72,34 @@ const Modules: React.FC = () => {
 
   const createNewNote = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; // Get the first file from the FileList object, if present
-  
+    
     if (file) {
-      const reader = new FileReader();
-  
-      reader.onload = async (e) => {
-        const text = e.target?.result as string; // This is your file's text content
-  
-        const selectedFolder = folders.find(folder => folder.id === selectedNotebookId);
-        const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; // Provide a fallback in case the ID is not found
-  
-        console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName);
-  
-        // Call your function to handle the file content
-        createDocument(text, file.name, 'file', selectedNotebookId); // Passing the file content and other details to your function
-      };
-  
-      reader.readAsText(file); // Read the file's content as text
+      const fileType = file.type;
+
+      if (fileType === 'text/plain' || fileType == 'application/pdf') {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const text = e.target?.result as string; // This is your file's text content
+          const selectedFolder = folders.find(folder => folder.id === selectedNotebookId);
+          const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; // Provide a fallback in case the ID is not found
+    
+          console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName);
+          // Call your function to handle the file content
+          createDocument(text, file.name, 'file', selectedNotebookId); // Passing the file content and other details to your function
+        };
+        reader.readAsText(file); // Read the file's content as text
+      } 
+      else if (fileType.startsWith('image/')) {
+        // It's an image file (any image format)
+        // Handle image file
+      } else {
+        // Unsupported file type
+        alert(`Unsupported file type: ${fileType}`);
+
+      }
     }
   };
   
-  
-
   const createDocument = async (documentContent: string, fileName: string, fileType: string, parentId: string | null) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/documents/create', {
@@ -155,7 +161,7 @@ const Modules: React.FC = () => {
       </div>
     );
   };
-
+  
   const renderFileUpload = () => {
     // Check if a notebook is selected
     if (!selectedNotebookId) return null;
@@ -168,7 +174,7 @@ const Modules: React.FC = () => {
             <DocumentPlusIcon className="large-icon"/>
             Browse Files
           </label>
-          <input id="file-upload" type="file" accept=".txt" style={{display:'none'}} onChange={createNewNote} />
+          <input id="file-upload" type="file" accept=".txt, .pdf, .png, .jpg" style={{display:'none'}} onChange={createNewNote} />
         </div>
         <div className="button-container-bottom-right">
           <button className="cancel-button" onClick={closeModal}>Cancel</button>
@@ -177,23 +183,6 @@ const Modules: React.FC = () => {
     );
   };
 
-  // const handleButtonClick = async () => {
-  //   try {
-  //     const response = await fetch("http://127.0.0.1:5000/ocr/ocr", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-
-  //     const text = await response.text();
-  //     alert(text);
-  //   } 
-  //   catch (error) {
-  //     alert("Error occurred while fetching OCR data.");
-  //     console.error("There was an error with the OCR request:", error);
-  //   }
-  // }
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = async () => {
@@ -209,12 +198,16 @@ const Modules: React.FC = () => {
 
       const response = await fetch("http://127.0.0.1:5000/ocr/ocr", {
         method: "POST",
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // if using token-based authentication
+        },
         body: imageData,
       });
 
       const text = await response.text();
       alert(text);
-    } catch (error) {
+    } 
+    catch (error) {
       alert("Error occurred while fetching OCR data.");
       console.error("There was an error with the OCR request:", error);
     }
