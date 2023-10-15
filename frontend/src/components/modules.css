@@ -7,16 +7,17 @@
     top: 80%;
 }
 .basic-button {
-    border: 1px solid #D2D2D2;
+    border: 2px #D2D2D2;
     background-color: #E4E4E4;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 10px;
     cursor: pointer;
     color: #000000;
+    box-shadow: 1px 1px 3px rgb(199, 199, 199);
 }
 .basic-button:hover {
-    background-color:#EA855A;
-    border: 1px solid #e66f3d;
+    background-color:#dadada;
+    color: #000000;
 }
 .cancel-button { 
     border: 1px solid #898989;
@@ -89,6 +90,13 @@ label {
     min-height: 48px;
     min-width: 48px;
 }
+.inline-label {
+    flex-direction: row;
+    display: flex;
+    width: auto;
+    text-align: left;
+    padding-top: 10px;
+}
 .module-container {
     display: flex;
     flex-direction: column;
@@ -96,8 +104,12 @@ label {
 .inline-container {
     display: flex;
     align-items: center;
-    cursor: pointer;
     padding-top: 20px;
+}
+.inline-container-buttons {
+    display: flex;
+    align-items: center;
+    padding-top: 0px;
 }
 .invisible-button-label {
     width: 100%;

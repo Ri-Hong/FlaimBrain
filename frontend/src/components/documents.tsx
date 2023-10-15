@@ -159,7 +159,7 @@ const Documents: React.FC<DocumentsProps> = ({ onFileClick }) => {
 
   return (
     <section className="file-structure">
-      <h2>my files</h2>
+      <h2>My Files</h2>
       <FolderTree
         data={initialTree || defaultTree}
         showCheckbox={false}

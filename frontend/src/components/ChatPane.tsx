@@ -130,7 +130,7 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button type="submit">Send</button>
+        <button className="basic-button" type="submit">Send</button>
       </form>
     </div>
   );

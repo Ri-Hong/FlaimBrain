@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import './modules.css';
-import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon } from '@heroicons/react/24/solid';
+import { FolderOpenIcon, PlusCircleIcon, DocumentPlusIcon, FireIcon, DocumentMagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import Alert from '@mui/material/Alert';
 
 
@@ -142,7 +142,7 @@ const Modules: React.FC = () => {
   const renderNotebookSelection = () => {
     return (
       <div>
-        <h2>select a notebook</h2>
+        <h2>Select a notebook</h2>
         <div className="button-container">
           {folders.map(folder => (
             <button className="invisible-button" key={folder.id} onClick={() => handleNotebookSelection(folder.id)}>
@@ -169,7 +169,7 @@ const Modules: React.FC = () => {
     return (
       <div>
         <div>
-          <h2>upload a file to: {selectedFolderName}</h2>
+          <h2>Upload a file to: {selectedFolderName}</h2>
           <label htmlFor="file-upload">
             <DocumentPlusIcon className="large-icon"/>
             Browse Files
@@ -222,8 +222,16 @@ const Modules: React.FC = () => {
   return (
     <div>
       <button className="basic-button" onClick={openModal}>Upload File</button>
-      <input type="file" ref={fileInputRef} /> 
-      <button onClick={handleButtonClick}>Get OCR Text</button>
+      <div className="inline-container-buttons">
+        <button className="basic-button" onClick={handleButtonClick}>Get OCR Text</button>
+        <div>
+            <label className="inline-label" htmlFor="file-upload">
+              <DocumentMagnifyingGlassIcon className="large-icon"/>
+              Choose OCR File
+            </label>
+            <input id="file-upload" type="file" style={{display:'none'}} ref={fileInputRef} /> 
+        </div>
+      </div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

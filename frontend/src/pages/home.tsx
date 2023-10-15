@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
       <aside className="sidebar">
         <Documents onFileClick={handleFileContentUpdate}/>
         <section className="modules">
-          <h2>modules</h2>
+          <h2>Modules</h2>
           <Modules></Modules>
         </section>
       </aside>
