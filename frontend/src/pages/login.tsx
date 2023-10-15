@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './login.css';
 
 // Define the structure of your form data
 interface FormState {
@@ -64,10 +65,10 @@ const Login: React.FC = () => {
     
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-container">
+      <h2 className="login-header">Login</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-container">
           <label>Username:</label>
           <input
             type="text"
@@ -77,7 +78,7 @@ const Login: React.FC = () => {
             required
           />
         </div>
-        <div>
+        <div className="input-container">
           <label>Password:</label>
           <input
             type="password"
@@ -91,8 +92,6 @@ const Login: React.FC = () => {
 
         <button onClick={goToRegister}>Go To Register</button>
       </form>
-
-      
     </div>
   );
 };
