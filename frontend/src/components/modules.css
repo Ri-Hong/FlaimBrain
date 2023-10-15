@@ -7,7 +7,7 @@
     padding: 20px;
     width:fit-content;
 }
-.invisible-button:hover {
+.invisible-button:hover, .invisible-button2:hover {
     background-color:#dadada;
     color: #000000;
 }
@@ -58,6 +58,7 @@
     cursor: pointer;
     padding: 0;
     color: #000000;
+    border-radius: 8px;
 }
 .large-icon {
     width: 64px;
@@ -136,6 +137,13 @@ label {
     text-align: center;
     width: fit-content;
 }
+.inline-label2 svg {
+    margin-bottom: 10px; /* Adjust the margin to increase space between icon and text */
+  }
+  
+  .inline-label2 span {
+    margin-top: 10px; /* Adjust the margin to increase space between icon and text */
+  }
 
 .module-container {
     display: flex;
