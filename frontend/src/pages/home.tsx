@@ -4,6 +4,7 @@ import './home.css';
 import Documents from '../components/documents';
 import FileContentViewer from '../components/fileContentViewer'; // Adjust the import
 import Modules from '../components/modules'; // Adjust the import
+import ChatPane from '../components/ChatPane';
 
 const HomePage: React.FC = () => {
   const [selectedFileContent, setSelectedFileContent] = useState('');
@@ -25,7 +26,7 @@ const HomePage: React.FC = () => {
         <FileContentViewer content={selectedFileContent} />
       </section>
       <section className="chat-interface">
-      <h2>chat interface</h2>
+        <ChatPane/>
       </section>
     </div>
   );
