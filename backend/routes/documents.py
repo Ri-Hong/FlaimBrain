@@ -3,10 +3,12 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import datetime
 from bson import ObjectId
 from db import get_db  # Ensure you have this helper function to get a db instance
+from werkzeug.utils import secure_filename
+import os
 
 from datetime import datetime
 from pymongo import MongoClient
-from langchain.document_loaders import PyMuPDFLoader
+from langchain.document_loaders import PyMuPDFLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
@@ -14,27 +16,44 @@ from langchain.embeddings import OpenAIEmbeddings
 documents = Blueprint('documents', __name__)
 
 
-def upload_data_to_vector_db(pdf_path, persist_directory):
-    # Load the PDF document
-    loader = PyMuPDFLoader(pdf_path)
-    documents = loader.load()
+# Creates an embedding, stores it in Chroma, and returns the text content of the document
+def upload_data_to_vector_db(file, persist_directory):
+    if file.filename == '':
+        return "No selected file", 400
+    # Save the file to a temporary location
+    filename = secure_filename(file.filename)
+    temp_file_path = os.path.join("/tmp", filename)
+    file.save(temp_file_path)
+    
+    try:
+        file_extension = os.path.splitext(filename)[1].lower()
+        if file_extension == '.pdf':
+            loader = PyMuPDFLoader(temp_file_path)
+        elif file_extension == '.txt':
+            loader = TextLoader(temp_file_path)
+        else:
+            return jsonify({"message": "Invalid file type"}), 400
+        documents = loader.load()
 
-    # Split the document text into chunks
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=10)
-    texts = text_splitter.split_documents(documents)
+        # Split the document text into chunks
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=10)
+        texts = text_splitter.split_documents(documents)
 
-    # Generate embeddings
-    embeddings = OpenAIEmbeddings()
+        # Generate embeddings
+        embeddings = OpenAIEmbeddings()
 
-    # Store vectors in Chroma
-    vectordb = Chroma.from_documents(documents=texts, 
-                                     embedding=embeddings,
-                                     persist_directory=persist_directory)
-    vectordb.persist()
-    return vectordb
+        # Store vectors in Chroma
+        vectordb = Chroma.from_documents(documents=texts, 
+                                        embedding=embeddings,
+                                        persist_directory=persist_directory)
+        vectordb.persist()
 
-# Usage:
-# vectordb = upload_data(pdf_path, persist_directory)
+
+        document = documents[0]
+        text_content = document.page_content
+    finally:
+        os.remove(temp_file_path)  # Delete the temporary file
+    return text_content
 
 
 @documents.route('/create', methods=['POST'])
@@ -42,21 +61,28 @@ def upload_data_to_vector_db(pdf_path, persist_directory):
 def create_document():
     db = get_db()
     user_id = get_jwt_identity()  # Get the identity of the current user
-    data = request.get_json()
-    
+
+
+    file = request.files['file'] if 'file' in request.files else None
+    name = request.form['name']
+    file_or_folder = request.form['fileOrFolder']
+    parent_id = request.form['parentId'] if 'parentId' in request.form else None
+
+    page_content = upload_data_to_vector_db(file, "./storage")
+
     new_document = {
         "userId": user_id,
-        "name": data.get('name'),
-        "type": data.get('type'),
-        "parentId": data.get('parentId') or None,
+        "name": name,
+        "type": file_or_folder,
+        "parentId": parent_id,
         "children": [],
-        "content": data.get('content') or None,
+        "content": page_content,
         "createdAt": datetime.utcnow(),
         "updatedAt": datetime.utcnow()
     }
     
     doc = db.documents.insert_one(new_document)
-        
+
     return jsonify({"message": "Document created", "id": str(doc.inserted_id)}), 201
 
 @documents.route('/get', methods=['GET'])

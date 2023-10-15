@@ -102,7 +102,7 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
       const responseData = await response.json();
       const reply = responseData.response;
 
-      setResponses(prevResponses => (prevResponses ? [...prevResponses, { sender: 'bot', content: message }] : []));
+      setResponses(prevResponses => (prevResponses ? [...prevResponses, { sender: 'bot', content: reply }] : []));
       saveMessage(reply);
 
     } catch (error) {
