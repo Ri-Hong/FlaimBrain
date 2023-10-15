@@ -1,0 +1,379 @@
+{
+  "count": 11,
+  "fields": [
+    {
+      "name": "_id",
+      "path": [
+        "_id"
+      ],
+      "count": 11,
+      "type": "ObjectId",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "ObjectId",
+          "path": [
+            "_id"
+          ],
+          "count": 11,
+          "probability": 1,
+          "unique": 11,
+          "hasDuplicates": false,
+          "values": [
+            "652a9fb8cb6e6c4cdfd68390",
+            "652bab31d0fb4012bb6634df",
+            "652b0657ec4431e42c53109d",
+            "652bdb1143eb5464e3401b56",
+            "652aeac2ec4431e42c53106c",
+            "652b0767ec4431e42c5310a4",
+            "652b4863adc131488acac0de",
+            "652aa002cb6e6c4cdfd68398",
+            "652bb00216984cf1f00e97f6",
+            "652a9fe5cb6e6c4cdfd68396",
+            "652b5ea2c1851565b7bb160d"
+          ],
+          "bsonType": "ObjectId"
+        }
+      ]
+    },
+    {
+      "name": "children",
+      "path": [
+        "children"
+      ],
+      "count": 11,
+      "type": "Array",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "Array",
+          "path": [
+            "children"
+          ],
+          "count": 11,
+          "probability": 1,
+          "bsonType": "Array",
+          "types": [],
+          "totalCount": 0,
+          "lengths": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "averageLength": 0
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "path": [
+        "content"
+      ],
+      "count": 11,
+      "type": [
+        "String",
+        "Null"
+      ],
+      "probability": 1,
+      "hasDuplicates": true,
+      "types": [
+        {
+          "name": "String",
+          "path": [
+            "content"
+          ],
+          "count": 9,
+          "probability": 0.8181818181818182,
+          "unique": 7,
+          "hasDuplicates": true,
+          "values": [
+            "sample file here hello hello",
+            "## Features\n\n### Document upload (Module 1)\n- Users can upload a handwritten note/assignment. We will use some sort of OCR technology to convert it into text\n- ***Cohere Classify*** used to classify it into notes or assessment\n- That note is stored in a database. \n- The file structure for the end user will be:\n  - Notebook\n\t  - Files\n\n### File Storage\n- We have to store those files and their structure into a database.\n\n### Authentication\n- Each user will have different files, so we need an authentication system\n\n### Summarizer (Module 2)\n- ***Cohere Summarize*** used to summarize notes\n- Maybe a parameter to how many words the summary should be in order not to make it too long/short\n\n### Flashcard/Mock Exam Generator (Module 3)\n??? How to accomplish?\n\n### Chat Interface\n- Ability to chat about documents\n- Uses ***Cohere RAG model*** to cite sources from notes when answering questions\n- Need to figure out the scope of the data fed into the model. Can user only ask questions within 1 document or can questions span across multiple documents\n- Integration with other modules\n\t- Uses ***LangChain Agents*** to allow for this interfacing\n\t- \n\n",
+            "The Unveiling of Pseudoargon: A Leap\nin Theoretical Chemistry\nIn the pursuit of understanding the unknown, the year 2024 brought forth a revolutionary\nrevelation in the sphere of theoretical chemistry with the unveiling of a novel element, christened\nPseudoargon. This newfound element, denoted as Pg, was brought to light by a dedicated\ncohort of scientists at the Hypothetical Element Investigation Laboratory.\nPseudoargon stands out due to its remarkable characteristic of residing in a pseudo-state,\nmaneuvering between being a noble gas and a metal. It claims the atomic number 140,\noccupying a speculative position in the extended version of the periodic table, a space theorists\nhad long conjectured to exist. The door to this discovery was unlocked with the aid of an\navant-garde instrument, the Quantum Harmonic Oscillator Detector, which was able to discern\nthe distinct harmonic vibrations emanated by the atoms of Pseudoargon.\nThe unveiling of Pseudoargon is a beacon of potential, casting light on numerous prospects. Its\nexceptional traits hint at feasible applications in the domain of renewable energy, especially\nfostering advancements in nuclear fusion technology. Additionally, the pseudo-state of\nPseudoargon facilitates intriguing interactions with other elements, carving fresh pathways in\nthe fields of chemical engineering and materials science.\nThis significant discovery accentuates the essence of relentless exploration in the realm of\nscience, nudging the boundaries of the known into the abyss of the uncharted. The narrative of\nPseudoargon is not just a fascinating tale for budding chemists, but a bold statement on the\ninfinite horizons awaiting revelation in the discipline of chemistry. Through the lens of\nPseudoargon, we are reminded of the enduring allure of the unknown and the untold potential\nthat lies in the quest for discovery.\n",
+            "../../tools/produceOutputs suiteq1.txt ../codeForStudents/q1/sort\n\nimports allowed: iostream fstream sstream iomanip string\n\nQuestion 2: word ladder game\n-----------------------------\n\nlink first word to last word with the smallest chain of words. each word differs from the previous by exactly one character. \n\n1. take in input: command line args\n- starting word\n- ending word\n- filename for words file (list of words valid to use in the game) \n\n2. check that starting and ending words can be found in word file \n- if not found, print error txt and quit with exit code 1\n\n3. otherwise, accept player's word input\n\n4. if input is invalid, print cerr \n- invalid: not in word file AND/OR doesn't differ from previous by 1 char\n\n5. if user enters end word, print score (chain length) \n\n5. otherwise, wait for next word (loop step 3) \n\n6. allow user to play again. \n\n7. best (lowest) score is kept track for 1 execution of program. update best score if new highscore.\n\ntesting:\n- create new words file (dictionary); include \n- test digits \n\n\n\nQuestion 3: cumulative voting election\n---------------------------------------\nsummary:\n- num of voters >= 0 \n- voter has X votes (X > 0) \n- X may be provided as pos int cmd line arg. if not provided, default is X = n \n- can distribute votes amongst n candidates (0 <= n <= 10) \n- n determined by reading in candidate names \n\n1. input: read 1 full name of candidate per line (assume no trailing or leading ws) \n- each name len is 1-15 char, including spaces. name does not contain a numeral \n- in order, determines ith candidate \n\n2. input: read each voter's ballot (distribution of votes), per line (end-of-line)\n- ith col allocated to ith candidate\n\n3. check for invalid ballots\n- spoilt if does not consist of n col \n- spoilt if sum of votes exceeds X \n- number of votes for a candidate must be >= 0 (non-neg) \n\n4. terminate by eof\n\ntest:\n*- col != n \n*- sum of votes > x \n*- sum of votes < x\n*- sum of votes == x \n*- votes for a candidate is neg \n*- no arg passed (default) \n*- arg passed (pos)  \n*- zero candidates --> empty line (ws) becomes valid vote\n\n",
+            "## Features\n\n### Document upload (Module 1)\n- Users can upload a handwritten note/assignment. We will use some sort of OCR technology to convert it into text\n- ***Cohere Classify*** used to classify it into notes or assessment\n- That note is stored in a database. \n- The file structure for the end user will be:\n  - Notebook\n\t  - Files\n\n### File Storage\n- We have to store those files and their structure into a database.\n\n### Authentication\n- Each user will have different files, so we need an authentication system\n\n### Summarizer (Module 2)\n- ***Cohere Summarize*** used to summarize notes\n- Maybe a parameter to how many words the summary should be in order not to make it too long/short\n\n### Flashcard/Mock Exam Generator (Module 3)\n??? How to accomplish?\n\n### Chat Interface\n- Ability to chat about documents\n- Uses ***Cohere RAG model*** to cite sources from notes when answering questions\n- Need to figure out the scope of the data fed into the model. Can user only ask questions within 1 document or can questions span across multiple documents\n- Integration with other modules\n\t- Uses ***LangChain Agents*** to allow for this interfacing\n\t- \n\n",
+            "hello world",
+            "The Discovery of Quasixenon\nIn the realm of theoretical chemistry, the year 2023 marked a groundbreaking discovery with the\nidentification of a new element, dubbed Quasixenon. This element, bearing the symbol Qx, was\nuncovered by a team of researchers at the PseudoElemental Research Institute.\nQuasixenon is unique due to its ability to exist in a quasi-state between a noble gas and a\nhalogen. Its atomic number is 139, filling a previously hypothesized slot in the extended periodic\ntable. The discovery was made possible through the use of a newly developed Atomic\nResonance Spectrometer, which identified the unique vibrational frequency of Quasixenon\natoms.\nThe discovery of Quasixenon holds promise for numerous applications. Its unique properties\nsuggest potential uses in sustainable energy production, particularly in the realm of fusion\nenergy. Moreover, the quasi-state nature of Quasixenon allows for innovative interactions with\nother elements, opening new avenues in chemical engineering and materials science.\nThis monumental discovery underscores the importance of continual exploration in the scientific\ndomain, even as we venture into theoretical or previously uncharted territories. The tale of\nQuasixenon serves as an inspiring narrative for aspiring chemists and a testament to the\nboundless possibilities awaiting discovery in the field of chemistry.\n",
+            "hello world",
+            "0 5 cones\n1 4 cones\n2 3 cones\n3 2 cones\n4 1 cone\n5 No cones\n"
+          ],
+          "bsonType": "String"
+        },
+        {
+          "name": "Null",
+          "path": [
+            "content"
+          ],
+          "count": 2,
+          "probability": 0.18181818181818182,
+          "unique": 1,
+          "hasDuplicates": true,
+          "bsonType": "Null"
+        }
+      ]
+    },
+    {
+      "name": "createdAt",
+      "path": [
+        "createdAt"
+      ],
+      "count": 11,
+      "type": "Date",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "Date",
+          "path": [
+            "createdAt"
+          ],
+          "count": 11,
+          "probability": 1,
+          "unique": 11,
+          "hasDuplicates": false,
+          "values": [
+            "2023-10-14T14:03:36.474Z",
+            "2023-10-15T09:04:49.317Z",
+            "2023-10-14T21:21:27.920Z",
+            "2023-10-15T12:29:05.295Z",
+            "2023-10-14T19:23:46.081Z",
+            "2023-10-14T21:25:59.019Z",
+            "2023-10-15T02:03:15.292Z",
+            "2023-10-14T14:04:50.531Z",
+            "2023-10-15T09:25:22.339Z",
+            "2023-10-14T14:04:21.551Z",
+            "2023-10-15T03:38:10.963Z"
+          ],
+          "bsonType": "Date"
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "path": [
+        "name"
+      ],
+      "count": 11,
+      "type": "String",
+      "probability": 1,
+      "hasDuplicates": true,
+      "types": [
+        {
+          "name": "String",
+          "path": [
+            "name"
+          ],
+          "count": 11,
+          "probability": 1,
+          "unique": 9,
+          "hasDuplicates": true,
+          "values": [
+            "Test notebook",
+            "sample.txt",
+            "Brainstorm.md",
+            "Psudoargon.pdf",
+            "a1 notes.txt",
+            "Brainstorm.md",
+            "CS 123",
+            "helloworld.txt",
+            "Quasixenon.pdf",
+            "helloworld.txt",
+            "labels.txt"
+          ],
+          "bsonType": "String"
+        }
+      ]
+    },
+    {
+      "name": "parentId",
+      "path": [
+        "parentId"
+      ],
+      "count": 11,
+      "type": [
+        "String",
+        "Null"
+      ],
+      "probability": 1,
+      "hasDuplicates": true,
+      "types": [
+        {
+          "name": "String",
+          "path": [
+            "parentId"
+          ],
+          "count": 9,
+          "probability": 0.8181818181818182,
+          "unique": 3,
+          "hasDuplicates": true,
+          "values": [
+            "652b4863adc131488acac0de",
+            "652a9fadcb6e6c4cdfd6838e",
+            "652a9fb8cb6e6c4cdfd68390",
+            "652a9fb8cb6e6c4cdfd68390",
+            "652a9fadcb6e6c4cdfd6838e",
+            "652a9fadcb6e6c4cdfd6838e",
+            "652b4863adc131488acac0de",
+            "652a9fadcb6e6c4cdfd6838e",
+            "652b4863adc131488acac0de"
+          ],
+          "bsonType": "String"
+        },
+        {
+          "name": "Null",
+          "path": [
+            "parentId"
+          ],
+          "count": 2,
+          "probability": 0.18181818181818182,
+          "unique": 1,
+          "hasDuplicates": true,
+          "bsonType": "Null"
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "path": [
+        "type"
+      ],
+      "count": 11,
+      "type": "String",
+      "probability": 1,
+      "hasDuplicates": true,
+      "types": [
+        {
+          "name": "String",
+          "path": [
+            "type"
+          ],
+          "count": 11,
+          "probability": 1,
+          "unique": 2,
+          "hasDuplicates": true,
+          "values": [
+            "folder",
+            "file",
+            "file",
+            "file",
+            "file",
+            "file",
+            "folder",
+            "file",
+            "file",
+            "file",
+            "file"
+          ],
+          "bsonType": "String"
+        }
+      ]
+    },
+    {
+      "name": "updatedAt",
+      "path": [
+        "updatedAt"
+      ],
+      "count": 11,
+      "type": "Date",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "Date",
+          "path": [
+            "updatedAt"
+          ],
+          "count": 11,
+          "probability": 1,
+          "unique": 11,
+          "hasDuplicates": false,
+          "values": [
+            "2023-10-14T14:03:36.474Z",
+            "2023-10-15T09:04:49.317Z",
+            "2023-10-14T21:21:27.920Z",
+            "2023-10-15T12:29:05.295Z",
+            "2023-10-14T19:23:46.081Z",
+            "2023-10-14T21:25:59.019Z",
+            "2023-10-15T02:03:15.292Z",
+            "2023-10-14T14:04:50.531Z",
+            "2023-10-15T09:25:22.339Z",
+            "2023-10-14T14:04:21.551Z",
+            "2023-10-15T03:38:10.963Z"
+          ],
+          "bsonType": "Date"
+        }
+      ]
+    },
+    {
+      "name": "userId",
+      "path": [
+        "userId"
+      ],
+      "count": 11,
+      "type": "Document",
+      "probability": 1,
+      "hasDuplicates": false,
+      "types": [
+        {
+          "name": "Document",
+          "path": [
+            "userId"
+          ],
+          "count": 11,
+          "probability": 1,
+          "bsonType": "Document",
+          "fields": [
+            {
+              "name": "username",
+              "path": [
+                "userId",
+                "username"
+              ],
+              "count": 11,
+              "type": "String",
+              "probability": 1,
+              "hasDuplicates": true,
+              "types": [
+                {
+                  "name": "String",
+                  "path": [
+                    "userId",
+                    "username"
+                  ],
+                  "count": 11,
+                  "probability": 1,
+                  "unique": 1,
+                  "hasDuplicates": true,
+                  "values": [
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a",
+                    "a"
+                  ],
+                  "bsonType": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
