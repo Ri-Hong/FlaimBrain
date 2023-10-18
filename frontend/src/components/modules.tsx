@@ -88,22 +88,24 @@ const Modules: React.FC<ModulesProps> = ({ onFileUpload }) => {
     if (file) {
       const fileType = file.type;
 
-      if (fileType === 'text/plain' || fileType == 'application/pdf') {
+      if (fileType === 'text/plain' || fileType == 'application/pdf' || fileType === 'image/png' || fileType === 'image/jpeg') {
         const reader = new FileReader();
         reader.onload = async (e) => {
           const text = e.target?.result as string; // This is your file's text content
           const selectedFolder = folders.find(folder => folder.id === selectedNotebookId);
           const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; // Provide a fallback in case the ID is not found
     
-          console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName);
+          console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName, text, file, file.name);
+
+          // console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName);
           // Call your function to handle the file content
           createDocument(text, file, file.name, 'file', selectedNotebookId as string); // Passing the file content and other details to your function
         };
         reader.readAsText(file); // Read the file's content as text
       }
-      else if (fileType.startsWith('image/')) {
-        // It's an image file (any image format)
-        // Handle image file
+      else if (fileType === 'image/png' || fileType === 'image/jpeg') {
+        console.log("Runs OCR")
+        handleButtonClick();
       } else {
         // Unsupported file type
         alert(`Unsupported file type: ${fileType}`);
@@ -227,6 +229,11 @@ const Modules: React.FC<ModulesProps> = ({ onFileUpload }) => {
 
       const text = await response.text();
       alert(text);
+      const selectedFolder = folders.find(folder => folder.id === selectedNotebookId);
+      const selectedFolderName = selectedFolder ? selectedFolder.name : 'Unknown'; 
+      console.log('Creating a new note:', file.name, 'in notebook:', selectedFolderName, text, file, file.name);
+      // Call your function to handle the file content
+      createDocument(text as string, file, file.name, 'file', selectedNotebookId as string);
     } 
     catch (error) {
       alert("Error occurred while fetching OCR data.");
@@ -250,14 +257,22 @@ const Modules: React.FC<ModulesProps> = ({ onFileUpload }) => {
             Upload New File
           </label>
         </button>
+        <button className="invisible-button2" onClick={openModal}>
+          <label className="inline-label2">
+          <EyeIcon className="large-icon"/>
+            Choose OCR File
+          </label>
+        </button>
         {/*<button className="basic-button" onClick={handleButtonClick}>Get OCR Text</button>*/}
-        <button className="invisible-button2">
+        {/* <button className="invisible-button2">
         <label className="inline-label2" htmlFor="file-upload2">
             <EyeIcon className="large-icon"/>
             Choose OCR File
           </label>
-          <input id="file-upload2" type="file" style={{display:'none'}} ref={fileInputRef} /> 
-        </button>
+          <input id="file-upload2" type="file" style={{display:'none'}} onChange={openModal} ref={fileInputRef} /> 
+
+          <input id="file-upload2" type="file" style={{display:'none'}} onChange={createNewNote} ref={fileInputRef} /> 
+        </button> */}
       </div>
       <Modal
         isOpen={modalIsOpen}
