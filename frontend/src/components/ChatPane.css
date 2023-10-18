@@ -104,3 +104,34 @@ button:active {
   background-color: #e0e0e0;
   color: #000000;
 } */
+
+.typing-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  width: 50px;
+  /* border: 3px solid red; */
+}
+
+.dot {
+  background-color: #000;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: 0 3px;
+  opacity: 1;  /* Start at 0 opacity so they're invisible */
+  animation: ripple 1.2s infinite;  /* 1.5s duration, infinite loop */
+}
+
+/* Animation */
+@keyframes ripple {
+  0%, 100% { transform: translateY(0); }  /* At 0% and 100%, dot is at original position */
+  25% { transform: translateY(-7px); }  /* At 25%, dot is moved up by 10px */
+  50% { transform: translateY(0); }  /* At 50%, dot is back to original position */
+}
+
+/* Individual delays */
+.dot:nth-child(1) { animation-delay: 0s; }  /* No delay for first dot */
+.dot:nth-child(2) { animation-delay: 0.15s; }  /* 0.5s delay for second dot */
+.dot:nth-child(3) { animation-delay: 0.3s; }  /* 1s delay for third dot */
