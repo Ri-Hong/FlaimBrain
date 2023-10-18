@@ -1,24 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import './ChatPane.css';
-import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import { BsTrash3Fill } from 'react-icons/bs';
+import { PiPaperPlaneTiltFill } from 'react-icons/pi';
+
 
 interface ChatPaneProps {
   fileName: string;
 }
 
-interface MessageObject {
-  _id: string;
-  content: string;
-  createdAt: string;
-  documentName: string;
-  user_id: {
-    username: string;
-  };
-}
-
 const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
   const [message, setMessage] = useState<string>('');
   const [responses, setResponses] = useState<{ sender: string, content: string | React.JSX.Element }[]>([]);
+
+  const handleClearConversation = async () => {
+    setResponses([]);  // Clear the responses state
+  
+    // Optionally, send a request to the server to delete the conversation from the database
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/chatHistory/delete-conversation/` + fileName, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    
+      console.log('Conversation deleted');
+    } catch (error) {
+      console.error('There was a problem with the delete operation:', error);
+    }
+  };
+  
 
   const getChatHistory = async () => {
     try {
@@ -136,6 +152,12 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
 
   return (
     <div className="chat-pane">
+      <div className="action-bar">
+        <button onClick={handleClearConversation} className="clear-button">
+          <BsTrash3Fill size={24} />  {/* Render the BsTrash3Fill icon */}
+        </button>      
+      </div>
+
       <div className="messages">
         {responses && responses.map((response, index) => (
           <div key={index} className={`message ${response.sender}`}>
@@ -155,7 +177,7 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
           onChange={(e) => setMessage(e.target.value)}
         />
         <button className="basic-button" type="submit">
-            <PaperAirplaneIcon className="h-5 w-5" />
+            <PiPaperPlaneTiltFill size={24} />
         </button>
       </form>
     </div>

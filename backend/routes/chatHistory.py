@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from pymongo import MongoClient, ASCENDING, DESCENDING
+from pymongo import ASCENDING
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from db import get_db
 from datetime import datetime
@@ -30,3 +30,14 @@ def get_chat_history(document_name):
         message['_id'] = str(message['_id'])  # Convert ObjectId to string
     return jsonify(chat_history)
 
+
+@chatHistory.route('/delete-conversation/<string:document_name>', methods=['DELETE'])
+@jwt_required()
+def delete_conversation(document_name):
+    db = get_db()
+    result = db.chatHistory.delete_many({"documentName": document_name})
+    
+    if result.deleted_count > 0:
+        return jsonify(message=f"{result.deleted_count} messages deleted successfully"), 200
+    else:
+        return jsonify(message="No messages found to delete"), 404
