@@ -19,7 +19,9 @@ documents = Blueprint('documents', __name__)
 # Creates an embedding, stores it in Chroma, and returns the text content of the document
 def upload_data_to_vector_db(file, persist_directory):
     if not file or file.filename == '':
-        return "No selected file", 400
+        return ""
+
+        # return "No selected file", 400
     # Save the file to a temporary location
     filename = secure_filename(file.filename)
     temp_file_path = os.path.join("/tmp", filename)
@@ -27,14 +29,19 @@ def upload_data_to_vector_db(file, persist_directory):
     
     print("TFP: ", temp_file_path)
 
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    quasi = os.path.join(current_dir, "Quasixenon.txt")
+
     try:
         file_extension = os.path.splitext(filename)[1].lower()
-        if file_extension == '.pdf':
-            loader = PyMuPDFLoader(temp_file_path)
-        elif file_extension == '.txt':
-            loader = TextLoader(temp_file_path)
-        else:
-            return jsonify({"message": "Invalid file type"}), 400
+        loader = TextLoader(quasi)
+
+        # if file_extension == '.pdf':
+        #     loader = PyMuPDFLoader(temp_file_path)
+        # elif file_extension == '.txt' or file_extension == '.png':
+        #     loader = TextLoader(temp_file_path)
+        # else:
+        #     return jsonify({"message": "Invalid file type"}), 400
         documents = loader.load()
 
         # Split the document text into chunks
@@ -63,6 +70,7 @@ def upload_data_to_vector_db(file, persist_directory):
 @documents.route('/create', methods=['POST'])
 @jwt_required()
 def create_document():
+    print("Creating document")
     db = get_db()
     user_id = get_jwt_identity()  # Get the identity of the current user
 

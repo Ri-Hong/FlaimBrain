@@ -11,8 +11,8 @@ dotenv.load_dotenv()
 
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-persist_directory = "./storage"
-pdf_path = "../Psudoargon.pdf"
+persist_directory = "../storage"
+pdf_path = "../Innovations.pdf"
 
 loader = PyMuPDFLoader(pdf_path)
 documents = loader.load()
@@ -29,7 +29,7 @@ vectordb = Chroma.from_documents(documents=texts,
                                  persist_directory=persist_directory)
 vectordb.persist()
 
-retriever = vectordb.as_retriever(search_kwargs={"k": 3})
+retriever = vectordb.as_retriever(search_kwargs={"k": 10})
 llm = ChatOpenAI(model_name='gpt-4')
 
 qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
