@@ -6,7 +6,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 import dotenv
 
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 
 chat = Blueprint('chat', __name__)
