@@ -30,18 +30,16 @@ def upload_data_to_vector_db(file, persist_directory):
     print("TFP: ", temp_file_path)
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    quasi = os.path.join(current_dir, "Quasixenon.txt")
 
     try:
         file_extension = os.path.splitext(filename)[1].lower()
-        loader = TextLoader(quasi)
 
-        # if file_extension == '.pdf':
-        #     loader = PyMuPDFLoader(temp_file_path)
-        # elif file_extension == '.txt' or file_extension == '.png':
-        #     loader = TextLoader(temp_file_path)
-        # else:
-        #     return jsonify({"message": "Invalid file type"}), 400
+        if file_extension == '.pdf':
+            loader = PyMuPDFLoader(temp_file_path)
+        elif file_extension == '.txt' or file_extension == '.png':
+            loader = TextLoader(temp_file_path)
+        else:
+            return jsonify({"message": "Invalid file type"}), 400
         documents = loader.load()
 
         # Split the document text into chunks
