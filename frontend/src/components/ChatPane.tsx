@@ -14,27 +14,42 @@ const ChatPane: React.FC<ChatPaneProps> = ({ fileName }) => {
 
   const handleClearConversation = async () => {
     setResponses([]);  // Clear the responses state
-  
-    // Optionally, send a request to the server to delete the conversation from the database
+
     try {
-      const response = await fetch(`http://127.0.0.1:5000/chatHistory/delete-conversation/` + fileName, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
-      });
+        // Request to delete conversation from MongoDB
+        const deleteResponse = await fetch(`http://127.0.0.1:5000/chatHistory/delete-conversation/` + fileName, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+        });
     
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+        if (!deleteResponse.ok) {
+            throw new Error('Network response was not ok ' + deleteResponse.statusText);
+        }
+
+        console.log('Conversation deleted from MongoDB');
+
+        // Request to clear Langchain memory
+        const clearMemoryResponse = await fetch(`http://127.0.0.1:5000/chat/clear-memory`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+        });
     
-      console.log('Conversation deleted');
+        if (!clearMemoryResponse.ok) {
+            throw new Error('Network response was not ok ' + clearMemoryResponse.statusText);
+        }
+
+        console.log('Langchain memory cleared');
+
     } catch (error) {
-      console.error('There was a problem with the delete operation:', error);
+        console.error('There was a problem with the delete operation:', error);
     }
   };
-  
 
   const getChatHistory = async () => {
     try {
