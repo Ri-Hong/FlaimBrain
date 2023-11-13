@@ -43,8 +43,15 @@ def upload_data_to_vector_db(file, persist_directory):
         documents = loader.load()
 
         # Split the document text into chunks
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=10)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=150,
+            chunk_overlap=0,
+            separators=["\n\n", "\n", "(?<=\. )", " ", ""]
+        )
+        
         texts = text_splitter.split_documents(documents)
+
+        print("Texts: ", texts)
 
         # Generate embeddings
         embeddings = OpenAIEmbeddings()

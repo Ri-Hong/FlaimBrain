@@ -33,11 +33,14 @@ retriever = vectordb.as_retriever(search_type="similarity", search_kwargs={"k": 
 global memory
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
+memory.input_key="question"
+memory.output_key="answer"
+
 qa = ConversationalRetrievalChain.from_llm(
     llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0),
     retriever = retriever,
     memory = memory,
-    # return_source_documents = True,
+    return_source_documents = True,
     # return_generated_question = True
 )
 
@@ -45,11 +48,16 @@ qa = ConversationalRetrievalChain.from_llm(
 def handle_query(user_input):
     query = f"###Prompt {user_input}"
     try:
-        llm_response = qa({"question": query})
-        print(llm_response)
-        return llm_response["answer"]
+        response = qa({"question": query})
+        # Assuming you want to return both the answer and the source documents
+        llm_answer = response.get("answer", "No answer found.")
+        source_documents = response.get("source_documents", [])
+        # Handle or return the source documents as needed. For now, let's just print them.
+        print("Source documents:", source_documents)
+        return llm_answer
     except Exception as err:
         return f'Exception occurred. Please try again: {str(err)}'
+
 
 
 @chat.route('/get-response', methods=['POST'])
